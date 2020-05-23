@@ -1,0 +1,2 @@
+class AdvisoriesController < ApplicationController
+end

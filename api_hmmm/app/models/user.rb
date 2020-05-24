@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :bookedtours
   has_secure_password
   validates :name, presence: true
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { in: 4..20 }
   validates :password, presence: true, length: { in: 6..20 }
   validates :password_confirmation, presence: true, length: { in: 6..20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

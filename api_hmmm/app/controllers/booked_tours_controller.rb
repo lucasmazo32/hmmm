@@ -1,5 +1,10 @@
 class BookedToursController < ApplicationController
   def index
+    if params[:api_key] == nil
+      return json_response({ Message: 'No api key given' })
+    else
+      return json_response({ Message: 'Wrong api key' }) unless validates_key
+    end
     if params[:user] != nil
       json_response(user_info(params[:user]))
     else
@@ -27,5 +32,12 @@ class BookedToursController < ApplicationController
     else
       return { booked_tours: 0 }
     end
+  end
+
+  def validates_key
+    apiAll = params[:api_key]
+    apiKey = apiAll[1, 20]
+    apiId = apiAll[0]
+    return Apikey.find(apiId).key.is_password?(apiKey)
   end
 end

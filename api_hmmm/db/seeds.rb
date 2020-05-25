@@ -42,3 +42,14 @@ for i in 1..40 do
   client_id = rand(20) + 1
   Tour.create!(country: country, city: city, description: desc, max_capacity: max_capacity, cost: cost, days_a_week: days, hours: hours, duration: dur, client_id: client_id)
 end
+
+puts "finished seeding the tours"
+
+for i in 1..20 do
+  user = rand(20) + 1
+  tour_id = rand(40) + 1
+  quantity = rand(5) + 1
+  Bookedtour.create!(user_id: user, tour_id: tour_id, quantity: quantity)
+end
+
+puts "finished seeding the bookedtours"

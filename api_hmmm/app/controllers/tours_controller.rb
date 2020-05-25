@@ -49,7 +49,7 @@ class ToursController < ApplicationController
     tour = Tour.find_by(id: params[:id])
     client = Tour.client
     if client&.authenticate(params[:password])
-      if tour.update_attributes(tour_params)
+      if tour.update(tour_params)
         json_response(tour)
       end
     else

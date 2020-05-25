@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
-    user = User.find_by(id: params[:user_id])
+    user = User.find_by(id: params[:id])
     if user&.authenticate(params[:password])
       user.destroy
       json_response({ Message: "User deleted." })
@@ -30,9 +30,9 @@ class UsersController < ApplicationController
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
-    user = User.find_by(id: params[:user_id])
+    user = User.find_by(id: params[:id])
     if user&.authenticate(params[:user_password])
-      if user.update_attributes(user_params)
+      if user.update(user_params)
         json_response(user.as_json(only: %i[id email username name]))
       end
     else
@@ -50,6 +50,6 @@ class UsersController < ApplicationController
     apiAll = params[:api_key]
     apiKey = apiAll[1, 20]
     apiId = apiAll[0]
-    return Apikey.find(apiId).key.is_password?(apiKey)
+    return Apikey.find(apiId).authenticate_key(apiKey)
   end
 end

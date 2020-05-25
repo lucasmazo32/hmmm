@@ -35,7 +35,7 @@ class ClientsController < ApplicationController
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
-    client = Client.find_by(id: params[:client_id])
+    client = Client.find_by(id: params[:id])
     if client&.authenticate(params[:password])
       client.destroy
       json_response({ Message: "Client deleted." })
@@ -50,9 +50,9 @@ class ClientsController < ApplicationController
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
-    client = Client.find_by(id: params[:client_id])
+    client = Client.find_by(id: params[:id])
     if client&.authenticate(params[:client_password])
-      if client.update_attributes(client_params)
+      if client.update(client_params)
         json_response(client.as_json(only: %i[id email company_name company_logo]))
       end
     else
@@ -70,6 +70,6 @@ class ClientsController < ApplicationController
     apiAll = params[:api_key]
     apiKey = apiAll[1, 20]
     apiId = apiAll[0]
-    return Apikey.find(apiId).key.is_password?(apiKey)
+    return Apikey.find(apiId).authenticate_key(apiKey)
   end
 end

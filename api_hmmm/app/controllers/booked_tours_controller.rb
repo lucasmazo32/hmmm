@@ -38,6 +38,6 @@ class BookedToursController < ApplicationController
     apiAll = params[:api_key]
     apiKey = apiAll[1, 20]
     apiId = apiAll[0]
-    return Apikey.find(apiId).key.is_password?(apiKey)
+    return Apikey.find(apiId).authenticate_key(apiKey)
   end
 end

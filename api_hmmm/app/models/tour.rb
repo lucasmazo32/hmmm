@@ -6,7 +6,6 @@ class Tour < ApplicationRecord
   validates :description, presence: true
   validates :max_capacity, presence: true, numericality: { only_integer: true }
   validates :cost, presence: true
-  validates :days_a_week, presence: true
-  validates :hours, presence: true
+  validates :hour, presence: true
   validates :duration, presence: true
 end

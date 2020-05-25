@@ -36,20 +36,20 @@ for i in 1..40 do
   desc = Faker::Lorem.paragraph
   max_capacity = 10 + rand(20)
   cost = rand(40) + 10
-  days = "#{rand(7)},#{rand(7)}"
-  hours = "#{rand(24)},#{rand(24)}"
-  dur = rand(8) + 1
+  hours = rand(8) + 6
+  dur = rand(4) + 1
   client_id = rand(20) + 1
-  Tour.create!(country: country, city: city, description: desc, max_capacity: max_capacity, cost: cost, days_a_week: days, hours: hours, duration: dur, client_id: client_id)
+  Tour.create!(country: country, city: city, description: desc, max_capacity: max_capacity, cost: cost, hour: hours, duration: dur, client_id: client_id)
 end
 
 puts "finished seeding the tours"
 
-for i in 1..20 do
+for i in 1..60 do
   user = rand(20) + 1
   tour_id = rand(40) + 1
   quantity = rand(5) + 1
-  Bookedtour.create!(user_id: user, tour_id: tour_id, quantity: quantity)
+  day = Faker::Date.between(from: Date.today, to: 4.days.from_now)
+  Bookedtour.create!(user_id: user, tour_id: tour_id, quantity: quantity, day: day)
 end
 
 puts "finished seeding the bookedtours"

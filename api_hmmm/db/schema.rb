@@ -15,19 +15,10 @@ ActiveRecord::Schema.define(version: 2020_05_23_222711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "advisories", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "client_id", null: false
-    t.datetime "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_advisories_on_client_id"
-    t.index ["user_id"], name: "index_advisories_on_user_id"
-  end
-
   create_table "bookedtours", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "tour_id", null: false
+    t.date "day"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -50,9 +41,8 @@ ActiveRecord::Schema.define(version: 2020_05_23_222711) do
     t.text "description"
     t.integer "max_capacity"
     t.decimal "cost"
-    t.string "days_a_week"
-    t.string "hours"
-    t.decimal "duration"
+    t.integer "hour"
+    t.integer "duration"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -68,8 +58,6 @@ ActiveRecord::Schema.define(version: 2020_05_23_222711) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "advisories", "clients"
-  add_foreign_key "advisories", "users"
   add_foreign_key "bookedtours", "tours"
   add_foreign_key "bookedtours", "users"
   add_foreign_key "tours", "clients"

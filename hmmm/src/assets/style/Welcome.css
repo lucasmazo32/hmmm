@@ -7,8 +7,8 @@
   margin: 0 auto;
   -webkit-animation: image 1.5s ease;
           animation: image 1.5s ease;
-  -webkit-animation-delay: 2.5s;
-          animation-delay: 2.5s;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }
@@ -24,8 +24,8 @@
   text-align: center;
   -webkit-animation: welcome 2s ease;
           animation: welcome 2s ease;
-  -webkit-animation-delay: 2.5s;
-          animation-delay: 2.5s;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }

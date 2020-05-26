@@ -1,0 +1,38 @@
+$red: #e63947d7;
+$white: #f1faee;
+$light-blue: #a8dadc;
+$blue: #457b9d;
+$dark-blue: #1d3557;
+
+.sign-up {
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+  }
+  form {
+    display: block;
+    background-color: $blue;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    h2 {
+      color: $white;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+    .btn {
+      background-color: $white;
+      color: $blue;
+      transition: all 0.5s ease;
+      &:hover {
+        background-color: $blue;
+        color: $white;
+      }
+    }
+  }
+  .form-control {
+    margin: 10px 0;
+  }
+}

@@ -14,7 +14,7 @@ $dark-blue: #1d3557;
     width: $img-size;
     margin: 0 auto;
     animation: image 1.5s ease;
-    animation-delay: 2.5s;
+    animation-delay: 2s;
     animation-fill-mode: forwards;
   }
   svg {
@@ -26,7 +26,7 @@ $dark-blue: #1d3557;
     margin-top: 20px;
     text-align: center;
     animation: welcome 2s ease;
-    animation-delay: 2.5s;
+    animation-delay: 2s;
     animation-fill-mode: forwards;
   }
 }

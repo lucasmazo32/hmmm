@@ -34,4 +34,10 @@
 .sign-up .form-control {
   margin: 10px 0;
 }
+
+.login-label {
+  color: #f1faee;
+  font-size: 1.2rem;
+  width: 100%;
+}
 /*# sourceMappingURL=SignUp.css.map */

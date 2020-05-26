@@ -3,17 +3,24 @@ import {
   Link,
   useHistory,
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import logo from '../assets/images/logo.png';
+import actions from '../actions/index';
 import '../assets/style/Welcome.css';
 
-export default function Welcome() {
+const { logInUser, logInClient } = actions;
+
+function Welcome({ logInClient, logInUser }) {
   const history = useHistory();
 
   const handleClient = () => {
+    logInClient();
     history.push('/login');
   };
 
   const handleUser = () => {
+    logInUser();
     history.push('/login');
   };
 
@@ -43,3 +50,15 @@ export default function Welcome() {
     </div>
   );
 }
+
+Welcome.propTypes = {
+  logInClient: PropTypes.func.isRequired,
+  logInUser: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  logInClient: () => dispatch(logInClient()),
+  logInUser: () => dispatch(logInUser()),
+});
+
+export default connect(null, mapDispatchToProps)(Welcome);

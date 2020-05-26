@@ -1,0 +1,152 @@
+.welcome-container img {
+  position: relative;
+  display: block;
+  -webkit-transform: translate(0, calc(50vh - 100px)) scale(2);
+          transform: translate(0, calc(50vh - 100px)) scale(2);
+  width: 200px;
+  margin: 0 auto;
+  -webkit-animation: image 1.5s ease;
+          animation: image 1.5s ease;
+  -webkit-animation-delay: 2.5s;
+          animation-delay: 2.5s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.welcome-container svg {
+  width: 50px;
+}
+
+.welcome-container p {
+  opacity: 0;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  text-align: center;
+  -webkit-animation: welcome 2s ease;
+          animation: welcome 2s ease;
+  -webkit-animation-delay: 2.5s;
+          animation-delay: 2.5s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.welcome {
+  opacity: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-animation: welcome 2s ease;
+          animation: welcome 2s ease;
+  -webkit-animation-delay: 2.5s;
+          animation-delay: 2.5s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+@media screen and (max-width: 768px) {
+  .welcome {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+  }
+}
+
+.welcome-user, .welcome-client {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 300px;
+  width: 400px;
+  max-width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .welcome-user, .welcome-client {
+    width: 100%;
+    max-width: 100%;
+    height: 180px;
+  }
+}
+
+.welcome-user .btn, .welcome-client .btn {
+  background-color: #f1faee;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  .welcome-user .btn, .welcome-client .btn {
+    font-weight: normal;
+    padding: 0.2rem 0.75rem;
+  }
+}
+
+.welcome-user h2, .welcome-client h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .welcome-user h2, .welcome-client h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.welcome-user {
+  background-color: #e63947d7;
+  color: #f1faee;
+}
+
+.welcome-user .btn {
+  color: #e63947d7;
+}
+
+.welcome-client {
+  background-color: #457b9d;
+  color: #f1faee;
+}
+
+.welcome-client .btn {
+  color: #457b9d;
+}
+
+@-webkit-keyframes image {
+  to {
+    -webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes image {
+  to {
+    -webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1);
+  }
+}
+
+@-webkit-keyframes welcome {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes welcome {
+  to {
+    opacity: 1;
+  }
+}
+/*# sourceMappingURL=Welcome.css.map */

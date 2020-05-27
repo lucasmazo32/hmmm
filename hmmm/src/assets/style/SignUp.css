@@ -40,4 +40,20 @@
   font-size: 1.2rem;
   width: 100%;
 }
+
+.message-alert.closed {
+  opacity: 0;
+}
+
+.message-alert {
+  display: block;
+  opacity: 1;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: #e63947d7;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  color: #f1faee;
+}
 /*# sourceMappingURL=SignUp.css.map */

@@ -7,19 +7,37 @@ import {
   Route,
 } from 'react-router-dom';
 import session from '../api/session';
+import actions from '../actions/index';
+import showUser from '../api/showUser';
 import Main from '../components/Main';
 import Welcome from '../components/Welcome';
 import SignUp from '../components/SignUp';
 import '../assets/style/App.css';
 import LogIn from '../components/LogIn';
 
-const { setCookie, getCookie } = session;
+const { getCookie } = session;
+const { setUser } = actions;
 
-function App({ currentUser }) {
+function App({ currentUser, setUser }) {
   useEffect(() => {
-    setCookie('user2');
-    getCookie();
-  }, []);
+    const info = getCookie();
+    if (info !== null) {
+      if (/user/.test(info)) {
+        const response = showUser('user', info.slice(4));
+        response.then(result => {
+          setUser({ type: 'user', info: result });
+        });
+      } else {
+        const response = showUser('client', info.slice(6));
+        response.then(result => {
+          setUser({ type: 'client', info: result });
+        });
+      }
+    }
+  }, [setUser]);
+
+  console.log(currentUser);
+
   return (
     <Router>
       <Switch>
@@ -39,6 +57,7 @@ function App({ currentUser }) {
 
 App.propTypes = {
   currentUser: PropTypes.objectOf(PropTypes.any),
+  setUser: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
@@ -49,4 +68,8 @@ const mapStateToProps = ({ currentUserReducer: currentUser }) => ({
   currentUser,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  setUser: userInfo => dispatch(setUser(userInfo)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

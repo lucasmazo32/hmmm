@@ -7,8 +7,10 @@ import {
 import actions from '../actions/index';
 import logo from '../assets/images/logo.png';
 import login from '../api/login';
+import session from '../api/session';
 import '../assets/style/SignUp.css';
 
+const { setCookie } = session;
 const { setUser } = actions;
 
 function LogIn({ userType, setUser }) {
@@ -31,6 +33,7 @@ function LogIn({ userType, setUser }) {
         document.querySelector('.message-alert').classList.toggle('closed');
       } else {
         setUser({ type: userType, info: result });
+        setCookie(`${userType}${result.id}`);
         history.push('/');
       }
     });

@@ -9,6 +9,16 @@ class UsersController < ApplicationController
     json_response(@user, :created)
   end
 
+  def show
+    if params[:api_key] == nil
+      return json_response({ Message: 'No api key given' })
+    else
+      return json_response({ Message: 'Wrong api key' }) unless validates_key
+    end
+    user = User.find_by(id: params[:id])
+    json_response(user.as_json(only: %i[id name email username]))
+  end
+
   def destroy
     if params[:api_key] == nil
       return json_response({ Message: 'No api key given' })

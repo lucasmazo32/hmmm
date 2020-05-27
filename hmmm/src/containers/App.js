@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -6,14 +6,20 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import session from '../api/session';
 import Main from '../components/Main';
 import Welcome from '../components/Welcome';
 import SignUp from '../components/SignUp';
 import '../assets/style/App.css';
 import LogIn from '../components/LogIn';
 
+const { setCookie, getCookie } = session;
+
 function App({ currentUser }) {
-  console.log(currentUser);
+  useEffect(() => {
+    setCookie('user2');
+    getCookie();
+  }, []);
   return (
     <Router>
       <Switch>

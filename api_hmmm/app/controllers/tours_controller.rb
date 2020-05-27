@@ -8,9 +8,16 @@ class ToursController < ApplicationController
     if params[:city] != nil    
       tours = Tour.where(city: params[:city].capitalize)
       json_response(tours.as_json(only: %i[id description city]))
-    else
+    elsif params[:client] != nil
       tours = Tour.where(client_id: params[:client])
       json_response(tours.as_json(only: %i[id description city]))
+    elsif params[:arr] != nil
+      tours = Tour.all
+      tourArr = []
+      tours.each do |tour|
+        tourArr.include?(tour.city) ? nil : tourArr << tour.city
+      end
+      json_response({ tourArr: tourArr })
     end
   end
 

@@ -12,6 +12,16 @@ class BookedToursController < ApplicationController
     end
   end
 
+  def create
+    if params[:api_key] == nil
+      return json_response({ Message: 'No api key given' })
+    else
+      return json_response({ Message: 'Wrong api key' }) unless validates_key
+    end
+    booked = Bookedtour.create!(booked_params)
+    json_response(booked, :created)
+  end
+
   private
 
   def user_info(user_id)
@@ -32,6 +42,10 @@ class BookedToursController < ApplicationController
     else
       return { booked_tours: 0 }
     end
+  end
+
+  def booked_params
+    params.permit(:user_id, :tour_id, :day, :quantity)
   end
 
   def validates_key

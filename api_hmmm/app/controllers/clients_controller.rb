@@ -6,6 +6,13 @@ class ClientsController < ApplicationController
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
     @clients = Client.all
+    if params[:arr] === 'true'
+      clientArr = []
+      @clients.each do |client|
+        clientArr << { name: client.company_name, id: client.id }
+      end
+      return json_response({ clientArr: clientArr })
+    end
     json_response(@clients.as_json(only: %i[id email company_name company_logo]))
   end
 

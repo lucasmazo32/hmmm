@@ -194,3 +194,17 @@ To make any request, please give the API key as a parameter. The correct syntax 
   ```
   \* It is required to have one of the two. If you provide both of them, only the city parameter will be taken into consideration.
   - Response: Booked Tour information by user or by Tour.
+
+- Create a booked tour
+  - Relative path: /tours
+  - Method: POST
+  - Body:
+  ```
+  {
+    day: date,
+    quantity: number of tickets
+    user_id: user id,
+    tour_id: tour id,
+  }
+  ```
+  - Response: Booked Tour information.

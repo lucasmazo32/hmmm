@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
+import createUser from '../api/createUser';
+import session from '../api/session';
+import actions from '../actions/index';
 import '../assets/style/SignUp.css';
 
-export default function SignUp() {
-  const handleSubmit = e => {
+const { setUser } = actions;
 
+const { setCookie } = session;
+
+function SignUp({ setUser }) {
+  const [message, setMessage] = useState('');
+  const history = useHistory();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const user = createUser(
+      e.target[0].value, e.target[1].value, e.target[2].value, e.target[3].value, e.target[4].value,
+    );
+    user.then(result => {
+      if (result.message) {
+        setMessage(result.message);
+        document.querySelector('.message-alert').classList.remove('closed');
+      } else {
+        setUser({ type: 'user', info: result });
+        setCookie(`user${result.id}`);
+        history.push('/');
+      }
+    });
   };
 
   return (
@@ -19,6 +45,21 @@ export default function SignUp() {
         <input className="form-control" type="password" placeholder="Password Confirmation" />
         <button className="btn form-control" type="submit">Submit</button>
       </form>
+      <p className="message-alert closed">{message}</p>
     </div>
   );
 }
+
+SignUp.propTypes = {
+  setUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = ({ logInReducer: userType }) => ({
+  userType,
+});
+
+const mapDispatchToProps = dispatch => ({
+  setUser: loggedIn => dispatch(setUser(loggedIn)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

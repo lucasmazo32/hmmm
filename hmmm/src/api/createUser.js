@@ -4,13 +4,13 @@ import url from './url';
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-const login = async (name, username, email, password, password_confirmation) => {
+const login = async (name, username, email, password, passwordConfirmation) => {
   const urlencoded = new URLSearchParams();
   urlencoded.append('name', name);
   urlencoded.append('username', username);
   urlencoded.append('email', email);
   urlencoded.append('password', password);
-  urlencoded.append('password_confirmation', password_confirmation);
+  urlencoded.append('password_confirmation', passwordConfirmation);
 
   const requestOptions = {
     method: 'POST',

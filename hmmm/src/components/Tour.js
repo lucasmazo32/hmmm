@@ -23,7 +23,7 @@ export default function Tour({ currentUser }) {
       <h2>{ `${tour.client.company_name} invites you to:` }</h2>
       <h3>{ tour.tour.city }</h3>
       <p>{ tour.tour.description }</p>
-      <p>{ `Departure hour: ${tour.tour.hour}:00` }</p>
+      <p>{ `Departure hour: ${tour.tour.hour}:00 *Military time` }</p>
       <p>{ `Duration: ${tour.tour.duration} hour(s)` }</p>
       <p>{ `Cost: $${tour.tour.cost} USD per person.` }</p>
       { currentUser.type === 'user' ? <Link className="btn btn-book" to="/booktour">Book this tour</Link> : null }

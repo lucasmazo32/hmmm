@@ -28,7 +28,7 @@ function LogIn({ userType, setUser }) {
     response.then(result => {
       if (result.Message) {
         setMessage(result.Message);
-        document.querySelector('.message-alert').classList.toggle('closed');
+        document.querySelector('.message-alert').classList.remove('closed');
       } else {
         setUser({ type: userType, info: result });
         setCookie(`${userType}${result.id}`);

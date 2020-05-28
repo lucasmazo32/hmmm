@@ -27,7 +27,7 @@ export default function Nav({ currentUser }) {
         <button onClick={handleClick} className="btn btn-down-main" type="button">{ `Hello, ${name} ` }</button>
         <ul className="nav-options closed">
           <li><Link className="btn btn-down" to="/">Profile</Link></li>
-          <li><Link className="btn btn-down" to="/">Log out</Link></li>
+          <li><button type="button" className="btn btn-down">Log out</button></li>
         </ul>
       </div>
     </nav>

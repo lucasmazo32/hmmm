@@ -6,7 +6,7 @@ class ToursController < ApplicationController
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
     if params[:city] != nil    
-      tours = Tour.where(city: params[:city].capitalize)
+      tours = Tour.where(city: params[:city])
       json_response(tours.as_json(only: %i[id description city]))
     elsif params[:client] != nil
       tours = Tour.where(client_id: params[:client])

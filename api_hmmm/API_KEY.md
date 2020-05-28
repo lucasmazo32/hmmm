@@ -120,7 +120,7 @@ To make any request, please give the API key as a parameter. The correct syntax 
   ```
   {
     city: string,
-    client_id: integer
+    client: client id,
   }
   ```
   \* It is required to have one of the two. If you provide both of them, only the city parameter will be taken into consideration.

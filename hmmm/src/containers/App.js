@@ -9,7 +9,7 @@ import {
 import session from '../api/session';
 import actions from '../actions/index';
 import showUser from '../api/showUser';
-import Main from '../components/Main';
+import Main from './Main';
 import Welcome from '../components/Welcome';
 import SignUp from '../components/SignUp';
 import '../assets/style/App.css';
@@ -35,8 +35,6 @@ function App({ currentUser, setUser }) {
       }
     }
   }, [setUser]);
-
-  console.log(currentUser);
 
   return (
     <Router>

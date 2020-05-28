@@ -1,0 +1,85 @@
+nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #1d3557;
+  color: #f1faee;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 60px;
+  padding: 10px 30px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 576px) {
+  nav span {
+    display: none;
+    padding: 10px 0;
+  }
+}
+
+nav img {
+  background: #f1faee;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.options-container {
+  position: relative;
+}
+
+.nav-options {
+  position: absolute;
+  z-index: -100;
+  list-style: none;
+  margin-bottom: 0;
+  padding: 0;
+  background-color: #1d3557;
+  top: 48.41px;
+  right: 10px;
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.nav-options li {
+  border-top: #f1faee 1px solid;
+}
+
+.nav-options .btn {
+  padding: 0.35rem 2rem;
+  color: #f1faee;
+  min-width: 130px;
+  width: 100%;
+}
+
+.nav-options.closed {
+  -webkit-transform: translateY(-80px);
+          transform: translateY(-80px);
+  opacity: 0;
+}
+
+.btn-down-main {
+  color: #f1faee;
+}
+
+.btn-down-main:hover {
+  color: #f1faee;
+}
+
+.btn-down-main::after {
+  content: ">";
+  display: inline-block;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+/*# sourceMappingURL=Nav.css.map */

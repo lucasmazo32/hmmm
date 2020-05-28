@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Nav from '../components/Nav';
 
 export default function Main({ currentUser }) {
   return (
     <div>
-      {`Hello, ${currentUser.info.name}`}
+      <Nav currentUser={currentUser} />
+      <div className="container-xl">
+        <form>
+          <select></select>
+          <select></select>
+        </form>
+      </div>
     </div>
   );
 }

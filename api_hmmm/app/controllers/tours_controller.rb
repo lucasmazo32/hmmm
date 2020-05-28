@@ -70,8 +70,9 @@ class ToursController < ApplicationController
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
-    tour = Tour.find_by(id: params[:id])
-    json_response(tour)
+    tour = Tour.includes(:client).find_by(id: params[:id])
+    client = tour.client
+    json_response({ tour: tour, client: client.as_json(only: %i[id email company_name company_logo]) })
   end
 
   private

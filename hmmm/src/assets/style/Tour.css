@@ -1,0 +1,16 @@
+.tour-info img {
+  display: block;
+  margin: 20px auto;
+  max-height: 100px;
+  max-width: 100%;
+}
+
+.btn-book {
+  background-color: #1d3557;
+  color: #f1faee;
+}
+
+.btn-book:hover {
+  color: #f1faee;
+}
+/*# sourceMappingURL=Tour.css.map */

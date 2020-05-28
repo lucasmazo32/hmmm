@@ -81,6 +81,13 @@ nav img {
 .btn-down-main::after {
   content: ">";
   display: inline-block;
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.btn-down-main.closed::after {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
 }

@@ -14,6 +14,7 @@ import Welcome from '../components/Welcome';
 import SignUp from '../components/SignUp';
 import '../assets/style/App.css';
 import LogIn from '../components/LogIn';
+import Tour from '../components/Tour';
 
 const { getCookie } = session;
 const { setUser } = actions;
@@ -47,6 +48,9 @@ function App({ currentUser, setUser }) {
         </Route>
         <Route path="/login">
           <LogIn />
+        </Route>
+        <Route path="/tours/:id">
+          <Tour currentUser={currentUser} />
         </Route>
       </Switch>
     </Router>

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  useHistory,
-} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import actions from '../actions/index';
 import logo from '../assets/images/logo.png';
 import login from '../api/login';

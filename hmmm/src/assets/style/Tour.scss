@@ -1,0 +1,22 @@
+$red: #e63947d7;
+$white: #f1faee;
+$light-blue: #a8dadc;
+$blue: #457b9d;
+$dark-blue: #1d3557;
+
+.tour-info {
+  img {
+    display: block;
+    margin: 20px auto;
+    max-height: 100px;
+    max-width: 100%;
+  }
+}
+
+.btn-book {
+  background-color: $dark-blue;
+  color: $white;
+  &:hover {
+    color: $white;
+  }
+}

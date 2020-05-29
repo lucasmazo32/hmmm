@@ -34,12 +34,16 @@ export default function Nav({ currentUser }) {
 
   return (
     <nav>
-      <img src={logo} alt="hmmm logo" />
+      <Link to="/"><img src={logo} alt="hmmm logo" /></Link>
       <span>We help you decide!</span>
       <div className="options-container">
         <button onClick={handleClick} className="btn btn-down-main closed" type="button">{ `Hello, ${name} ` }</button>
         <ul className="nav-options closed">
-          <li><Link className="btn btn-down" to="/">Profile</Link></li>
+          <li>
+            { currentUser.type === 'user'
+              ? <Link className="btn btn-down" to={`/user/${currentUser.info.username}`}>Profile</Link>
+              : <Link className="btn btn-down" to={`/client/${currentUser.info.id}`}>Profile</Link> }
+          </li>
           <li><button onClick={handleLogOut} type="button" className="btn btn-down">Log out</button></li>
         </ul>
       </div>

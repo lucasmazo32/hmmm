@@ -22,3 +22,10 @@ $dark-blue: #1d3557;
     color: $white;
   }
 }
+
+.loader-tour {
+  display: flex;
+  margin-top: 50px;
+  width: 100%;
+  justify-content: center;
+}

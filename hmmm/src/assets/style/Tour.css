@@ -15,4 +15,15 @@
 .btn-book:hover {
   color: #f1faee;
 }
+
+.loader-tour {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 50px;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 /*# sourceMappingURL=Tour.css.map */

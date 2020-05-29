@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import Nav from './Nav';
 import tourApi from '../api/tourInfo';
 import '../assets/style/Tour.css';
@@ -39,7 +40,16 @@ export default function Tour({ currentUser }) {
   return (
     <div>
       <Nav currentUser={currentUser} />
-      { tour ? showInfo() : null }
+      { tour ? showInfo() : (
+        <div className="loader-tour">
+          <Loader
+            type="Puff"
+            color="#1d3557"
+            height={200}
+            width={200}
+          />
+        </div>
+      ) }
     </div>
   );
 }

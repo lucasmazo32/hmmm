@@ -1,0 +1,20 @@
+$red: #e63947d7;
+$white: #f1faee;
+$light-blue: #a8dadc;
+$blue: #17567e;
+$dark-blue: #1d3557;
+
+.book-form {
+  display: flex;
+  flex-flow: column;
+  max-width: 400px;
+  margin: 20px auto;
+  align-items: center;
+  .form-control {
+    flex-basis: 100%;
+  }
+  div {
+    display: flex;
+    flex-flow: column;
+  }
+}

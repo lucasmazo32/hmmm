@@ -40,6 +40,7 @@ class BookedToursController < ApplicationController
       return { booked_tours: booked_tour.first.sum, user_info: Tour.find(tour_id).info.as_json(except: %i[id]) }
     elsif Bookedtour.where(tour_id: tour_id).first != nil && date != nil
       booked_tour = Bookedtour.where(tour_id: tour_id, day: date).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc)
+      return { booked_tours: 0 } if booked_tour.first == nil
       return { booked_tours: booked_tour.first.sum }
     else
       return { booked_tours: 0 }

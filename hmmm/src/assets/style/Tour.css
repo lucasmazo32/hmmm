@@ -6,6 +6,8 @@
 }
 
 .btn-book {
+  display: block;
+  margin: 0 auto;
   background-color: #1d3557;
   color: #f1faee;
 }

@@ -8,7 +8,7 @@ class BookedToursController < ApplicationController
     if params[:user] != nil
       json_response(user_info(params[:user]))
     else
-      json_response(tour_info(params[:tour]))
+      json_response(tour_info(params[:tour], params[:date]))
     end
   end
 
@@ -34,11 +34,13 @@ class BookedToursController < ApplicationController
     end
   end
 
-  def tour_info(tour_id)
-    if Bookedtour.where(tour_id: tour_id).first != nil
+  def tour_info(tour_id, date)
+    if Bookedtour.where(tour_id: tour_id).first != nil && date == nil
       booked_tour = Bookedtour.where(tour_id: tour_id).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc)
-      user_info = Bookedtour.where(tour_id: tour_id)
-      return { booked_tours: booked_tour.first.sum, user_info: user_info.as_json(only: %i[user_id day quantity]) }
+      return { booked_tours: booked_tour.first.sum, user_info: Tour.find(tour_id).info.as_json(except: %i[id]) }
+    elsif Bookedtour.where(tour_id: tour_id).first != nil && date != nil
+      booked_tour = Bookedtour.where(tour_id: tour_id, day: date).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc)
+      return { booked_tours: booked_tour.first.sum }
     else
       return { booked_tours: 0 }
     end

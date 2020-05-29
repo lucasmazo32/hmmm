@@ -5,6 +5,10 @@
   max-width: 100%;
 }
 
+.user-info img {
+  max-width: 100%;
+}
+
 .user-info h2 {
   font-size: 1.3rem;
 }

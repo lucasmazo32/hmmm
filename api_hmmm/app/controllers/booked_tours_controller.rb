@@ -7,8 +7,10 @@ class BookedToursController < ApplicationController
     end
     if params[:user] != nil
       json_response(user_info(params[:user]))
-    else
+    elsif params[:tour]
       json_response(tour_info(params[:tour], params[:date]))
+    else params[:client]
+      json_response(client_info(params[:client]))
     end
   end
 
@@ -45,6 +47,19 @@ class BookedToursController < ApplicationController
     else
       return { booked_tours: 0 }
     end
+  end
+
+  def client_info(client_id)
+    arr = Client.includes(:tours).find(client_id).tour_arr
+    hash = {}
+    arr.map do |tour_id|
+      if Bookedtour.where(tour_id: tour_id).first != nil
+        hash[tour_id] = Bookedtour.where(tour_id: tour_id).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc).first.sum
+      else
+        hash[tour_id] = 0
+      end
+    end
+    hash
   end
 
   def booked_params

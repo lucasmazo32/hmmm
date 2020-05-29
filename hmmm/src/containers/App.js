@@ -16,6 +16,7 @@ import '../assets/style/App.css';
 import LogIn from '../components/LogIn';
 import Tour from '../components/Tour';
 import UserProfile from '../components/UserProfile';
+import ClientProfile from '../components/ClientProfile';
 
 const { getCookie } = session;
 const { setUser } = actions;
@@ -55,6 +56,9 @@ function App({ currentUser, setUser }) {
         </Route>
         <Route path="/me/:username">
           <UserProfile currentUser={currentUser} />
+        </Route>
+        <Route path="/client/:id">
+          <ClientProfile currentUser={currentUser} />
         </Route>
       </Switch>
     </Router>

@@ -15,6 +15,7 @@ import SignUp from '../components/SignUp';
 import '../assets/style/App.css';
 import LogIn from '../components/LogIn';
 import Tour from '../components/Tour';
+import UserProfile from '../components/UserProfile';
 
 const { getCookie } = session;
 const { setUser } = actions;
@@ -51,6 +52,9 @@ function App({ currentUser, setUser }) {
         </Route>
         <Route path="/tours/:id">
           <Tour currentUser={currentUser} />
+        </Route>
+        <Route path="/me/:username">
+          <UserProfile currentUser={currentUser} />
         </Route>
       </Switch>
     </Router>

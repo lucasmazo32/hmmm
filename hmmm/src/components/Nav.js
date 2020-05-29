@@ -32,16 +32,22 @@ export default function Nav({ currentUser }) {
     window.location.reload();
   };
 
+  const handleNull = () => {
+    history.push('/');
+    window.location.reload();
+  };
+
   return (
     <nav>
       <Link to="/"><img src={logo} alt="hmmm logo" /></Link>
       <span>We help you decide!</span>
+      { currentUser ? null : handleNull() }
       <div className="options-container">
         <button onClick={handleClick} className="btn btn-down-main closed" type="button">{ `Hello, ${name} ` }</button>
         <ul className="nav-options closed">
           <li>
             { currentUser.type === 'user'
-              ? <Link className="btn btn-down" to={`/user/${currentUser.info.username}`}>Profile</Link>
+              ? <Link className="btn btn-down" to={`/me/${currentUser.info.username}`}>Profile</Link>
               : <Link className="btn btn-down" to={`/client/${currentUser.info.id}`}>Profile</Link> }
           </li>
           <li><button onClick={handleLogOut} type="button" className="btn btn-down">Log out</button></li>

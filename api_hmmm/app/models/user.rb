@@ -11,6 +11,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
 
   def tours_going
-    Bookedtour.select('bookedtours.id, bookedtours.day, bookedtours.quantity, bookedtours.tour_id, tours.city, tours.country, tours.hour, tours.duration').joins(:tour).where(user_id: id)
+    Bookedtour.select('bookedtours.id, bookedtours.day, bookedtours.quantity, bookedtours.tour_id, tours.city, tours.country, tours.hour, tours.duration').joins(:tour).where("user_id = ? AND day >= ?", id, Date.today).order(day: :asc)
   end
 end

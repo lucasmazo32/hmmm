@@ -1,4 +1,3 @@
-const today = new Date();
-const maxDate = new Date().toISOString().slice(0, 10);
+const date = new Date('2020-05-30 3:00').toDateString();
 
-console.log(maxDate)
+console.log(date);

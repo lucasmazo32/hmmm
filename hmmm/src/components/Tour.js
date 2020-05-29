@@ -18,6 +18,10 @@ export default function Tour({ currentUser }) {
     });
   }, [id]);
 
+  const handleClick = () => {
+    document.querySelector('.book-form').classList.toggle('closed');
+  };
+
   const showInfo = () => (
     <section className="container-xl tour-info">
       <img src={tour.client.company_logo} alt="company logo" />
@@ -27,14 +31,14 @@ export default function Tour({ currentUser }) {
       <p>{ `Departure hour: ${tour.tour.hour}:00 *Military time` }</p>
       <p>{ `Duration: ${tour.tour.duration} hour(s)` }</p>
       <p>{ `Cost: $${tour.tour.cost} USD per person.` }</p>
-      { currentUser.type === 'user' ? <button type="button" className="btn btn-book" to="/booktour">Book this tour</button> : null }
-      { currentUser.type === 'user' ? <BookTour tourId={id} tourCost={tour.tour.cost} max={tour.tour.max_capacity} /> : null }
+      { currentUser.type === 'user' ? <button onClick={handleClick} type="button" className="btn btn-book" to="/booktour">Book this tour</button> : null }
+      { currentUser.type === 'user' ? <BookTour currentUser={currentUser} tourId={id} tourCost={tour.tour.cost} max={tour.tour.max_capacity} /> : null }
     </section>
   );
 
   return (
     <div>
-      {/* <Nav currentUser={currentUser} /> */}
+      <Nav currentUser={currentUser} />
       { tour ? showInfo() : null }
     </div>
   );

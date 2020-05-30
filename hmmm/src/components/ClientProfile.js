@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Nav from './Nav';
+import clientInfo from '../api/clientInfo';
 
 export default function ClientProfile({ currentUser }) {
+  useEffect(() => {
+    const response = clientInfo(currentUser.info.id);
+  }, []);
+
   return (
     <div>
       { currentUser ? (

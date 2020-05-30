@@ -23,7 +23,12 @@ class ClientsController < ApplicationController
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
     @client = Client.find_by(id: params[:id])
-    json_response(@client.as_json(only: %i[id email company_name company_logo]))
+    if params[:tour] != nil
+      tours = @client.tours
+      return json_response(tours.as_json(only: %i[id city cost]))
+    else
+      return json_response(@client.as_json(only: %i[id email company_name company_logo]))
+    end
   end
 
   def create

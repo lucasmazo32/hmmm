@@ -23,7 +23,7 @@ module ApiHmmm
   class Application < Rails::Application
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'localhost:3000'
+        origins '', /.+hmmm-app.netlify.app/
         resource '*', headers: :any, methods: :any
       end
     end

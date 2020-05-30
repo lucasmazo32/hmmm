@@ -43,8 +43,8 @@
   color: #f1faee;
 }
 
-.user-tours .user-tour-title:first-of-type {
-  padding-bottom: 0;
+.user-tours .last.user-tour-title {
+  padding-top: 0;
 }
 
 .upcoming-tour {

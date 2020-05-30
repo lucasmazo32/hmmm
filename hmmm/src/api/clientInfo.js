@@ -9,7 +9,7 @@ const clientInfo = async clientId => {
 
   const response1 = await fetch(`${url}/clients/${clientId}?api_key=${apiKey}&tour=true`, requestOptions);
   const data1 = await response1.json();
-  const response2 = await fetch(`${url}/booked_tours?api_key=${apiKey}&client=true`, requestOptions);
+  const response2 = await fetch(`${url}/booked_tours?api_key=${apiKey}&client=${clientId}`, requestOptions);
   const data2 = await response2.json();
   return [data1, data2];
 };

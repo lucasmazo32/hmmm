@@ -44,7 +44,7 @@ export default function UserProfile({ currentUser }) {
       { information ? (
         <div className="user-tours container-xl">
           <h3 className="user-tour-title">{ `Different tours booked: ${information.dif_booked}` }</h3>
-          <h3 className="user-tour-title">{ `Total tours booked: ${information.booked_tours}` }</h3>
+          <h3 className="user-tour-title last">{ `Total tours booked: ${information.booked_tours}` }</h3>
           <h2>Upcoming tours</h2>
           { upcoming() }
         </div>

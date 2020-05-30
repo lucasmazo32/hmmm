@@ -40,9 +40,9 @@ $dark-blue: #1d3557;
     padding: 0.75rem 1rem 0.75rem 1rem;
     font-size: 1.4rem;
     color: $white;
-    &:first-of-type {
-      padding-bottom: 0;
-    }
+  }
+  .last.user-tour-title {
+    padding-top: 0;
   }
 }
 

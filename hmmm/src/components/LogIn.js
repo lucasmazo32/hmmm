@@ -11,7 +11,7 @@ import '../assets/style/SignUp.css';
 const { setCookie } = session;
 const { setUser } = actions;
 
-function LogIn({ userType, setUser }) {
+export function LogIn({ userType, setUser }) {
   const [message, setMessage] = useState('');
   const history = useHistory();
 
@@ -47,7 +47,7 @@ function LogIn({ userType, setUser }) {
           <input className="form-control" id="email" type="email" placeholder="Email" />
         </label>
         <label className="login-label" htmlFor="password">
-          { userType === 'user' ? 'Password' : 'Password' }
+          Password
           <input className="form-control" id="password" type="password" placeholder="Password" />
         </label>
         <button className="btn form-control" type="submit">Submit</button>

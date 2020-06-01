@@ -21,7 +21,7 @@ import ClientProfile from '../components/ClientProfile';
 const { getCookie } = session;
 const { setUser } = actions;
 
-function App({ currentUser, setUser }) {
+export function App({ currentUser, setUser }) {
   useEffect(() => {
     const info = getCookie();
     if (info !== null) {

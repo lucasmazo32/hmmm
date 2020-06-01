@@ -61,11 +61,23 @@ To make any request, please give the API key as a parameter. The correct syntax 
 - Retrieve all clients
   - Relative path: /clients
   - Method: GET
+  - Params:
+  ```
+  {
+    arr: if a parameter, gives you the array with id and company name.
+  }
+  ```
   - Response: Clients information.
 
 - Retrieve specific client
   - Relative path: /clients/:id
   - Method: GET
+  - Params:
+  ```
+  {
+    tour: if a parameter, gives you all the client tours.
+  }
+  ```
   - Response: Client information.
 
 - Create new client
@@ -121,15 +133,16 @@ To make any request, please give the API key as a parameter. The correct syntax 
   {
     city: string,
     client: client id,
+    arr: If set to something, gives me the array of cities that the tours are.
   }
   ```
-  \* It is required to have one of the two. If you provide both of them, only the city parameter will be taken into consideration.
+  \* It is required to have one of the three. If you provide all of them, only the city parameter will be taken into consideration.
   - Response: Tours information.
 
 - Retrieve specific tour
   - Relative path: /tours/:id
   - Method: GET
-  - Response: Tour information.
+  - Response: Tour and client information for that tour.
 
 - Create new tour
   - Relative path: /tours
@@ -190,9 +203,10 @@ To make any request, please give the API key as a parameter. The correct syntax 
   {
     user: user id,
     tour: tour id,
+    client: client id.
   }
   ```
-  \* It is required to have one of the two. If you provide both of them, only the city parameter will be taken into consideration.
+  \* It is required to have one of the three. If you provide all of them, only the user parameter will be taken into consideration.
   - Response: Booked Tour information by user or by Tour.
 
 - Create a booked tour

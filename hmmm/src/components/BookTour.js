@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import bookedAtDate from '../api/bookedAtDate';
 import bookATour from '../api/bookATour';
+import helper from '../helpers/whenData';
 import '../assets/style/Book.css';
+
+const { whenData, today, maxDate } = helper;
 
 export default function BookTour({
   currentUser, tourId, tourCost, max,
@@ -13,9 +16,6 @@ export default function BookTour({
   const [canBuy, setCanBuy] = useState(null);
   const [cost, setCost] = useState(0);
   const [message, setMessage] = useState(null);
-
-  const today = new Date();
-  const maxDate = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate()).toISOString().slice(0, 10);
 
   const handleChange = e => {
     setFetch(true);
@@ -48,23 +48,6 @@ export default function BookTour({
     setCost(e.target.value * tourCost);
   };
 
-  const whenData = () => {
-    if (canBuy) {
-      return (
-        <div>
-          <label htmlFor="number">
-            { `${canBuy} space(s) available.` }
-            <input onChange={handleCost} className="form-control" min="1" max={canBuy} id="number" type="number" />
-          </label>
-          <span>{`Total cost: $${cost} USD`}</span>
-          <span className="book-msg">{ message }</span>
-          <button className="btn btn-book" type="submit">Book now!</button>
-        </div>
-      );
-    }
-    return null;
-  };
-
   return (
     <form onSubmit={handleSubmit} className="book-form closed">
       <label htmlFor="date">
@@ -78,7 +61,7 @@ export default function BookTour({
           height={50}
           width={50}
         />
-      ) : whenData() }
+      ) : whenData(canBuy, handleCost, cost, message) }
     </form>
   );
 }

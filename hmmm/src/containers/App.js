@@ -10,10 +10,10 @@ import session from '../api/session';
 import actions from '../actions/index';
 import showUser from '../api/showUser';
 import Main from './Main';
-import Welcome from '../components/Welcome';
+import WelcomeNode from '../components/Welcome';
 import SignUp from '../components/SignUp';
 import '../assets/style/App.css';
-import LogIn from '../components/LogIn';
+import LogInNode from '../components/LogIn';
 import Tour from '../components/Tour';
 import UserProfile from '../components/UserProfile';
 import ClientProfile from '../components/ClientProfile';
@@ -43,13 +43,13 @@ export function App({ currentUser, setUser }) {
     <Router>
       <Switch>
         <Route exact path="/">
-          { currentUser ? <Main currentUser={currentUser} /> : <Welcome />}
+          { currentUser ? <Main currentUser={currentUser} /> : <WelcomeNode />}
         </Route>
         <Route path="/signup">
           <SignUp />
         </Route>
         <Route path="/login">
-          <LogIn />
+          <LogInNode />
         </Route>
         <Route path="/tours/:id">
           <Tour currentUser={currentUser} />

@@ -22,7 +22,7 @@ PS: The onomatopeia of thinking inspires the name.
 
 ## Live version
 
-> [Here](https://5ed2d8af987c7a83ec3569bd--hmmm-app.netlify.app/)
+> [Here](https://5ed5a7bbb8c254ad6552b6f7--hmmm-app.netlify.app/)
 
 ## Built with
 
@@ -37,7 +37,7 @@ PS: The onomatopeia of thinking inspires the name.
 
 To get a local copy up and running follow these simple steps.
 
-Clone or fork the [repository]().
+Clone or fork the [repository](https://github.com/lucasmazo32/hmmm).
 
 Currently, the page is not available for the local environment. If you want to reproduce it in your machine, allow the CORS for the localhost in the rails API.
 

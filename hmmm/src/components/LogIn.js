@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import actions from '../actions/index';
 import logo from '../assets/images/logo.png';
 import login from '../api/login';
@@ -12,6 +13,7 @@ const { setCookie } = session;
 const { setUser } = actions;
 
 export function LogIn({ userType, setUser }) {
+  const [fetching, setFetching] = useState(false);
   const [message, setMessage] = useState('');
   const history = useHistory();
 
@@ -20,12 +22,14 @@ export function LogIn({ userType, setUser }) {
     const email = e.target[0].value;
     const password = e.target[1].value;
     let response;
+    setFetching(true);
     if (userType === 'user') {
       response = login(email, password);
     } else {
       response = login(email, password, true);
     }
     response.then(result => {
+      setFetching(false);
       if (result.Message) {
         setMessage(result.Message);
         document.querySelector('.message-alert').classList.remove('closed');
@@ -53,6 +57,16 @@ export function LogIn({ userType, setUser }) {
         <button className="btn form-control" type="submit">Submit</button>
       </form>
       <p className="message-alert closed">{message}</p>
+      { fetching ? (
+        <div className="loader-tour">
+          <Loader
+            type="Puff"
+            color="#1d3557"
+            height={50}
+            width={50}
+          />
+        </div>
+      ) : null }
     </div>
   );
 }

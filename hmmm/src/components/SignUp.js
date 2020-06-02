@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import logo from '../assets/images/logo.png';
 import createUser from '../api/createUser';
 import session from '../api/session';
@@ -14,14 +15,17 @@ const { setCookie } = session;
 
 function SignUp({ setUser }) {
   const [message, setMessage] = useState('');
+  const [fetching, setFetching] = useState(false);
   const history = useHistory();
 
   const handleSubmit = e => {
     e.preventDefault();
+    setFetching(true);
     const user = createUser(
       e.target[0].value, e.target[1].value, e.target[2].value, e.target[3].value, e.target[4].value,
     );
     user.then(result => {
+      setFetching(false);
       if (result.message) {
         setMessage(result.message);
         document.querySelector('.message-alert').classList.remove('closed');
@@ -46,6 +50,16 @@ function SignUp({ setUser }) {
         <button className="btn form-control" type="submit">Submit</button>
       </form>
       <p className="message-alert closed">{message}</p>
+      { fetching ? (
+        <div className="loader-tour">
+          <Loader
+            type="Puff"
+            color="#1d3557"
+            height={50}
+            width={50}
+          />
+        </div>
+      ) : null }
     </div>
   );
 }

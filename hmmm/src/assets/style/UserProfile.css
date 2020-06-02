@@ -1,0 +1,59 @@
+.user-info {
+  border: 3px solid #1d3557;
+  margin-top: 20px;
+  width: 400px;
+  max-width: 100%;
+}
+
+.user-info img {
+  max-width: 100%;
+}
+
+.user-info h2 {
+  font-size: 1.3rem;
+}
+
+.user-info .user-info-title {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.user-tours {
+  border: 3px solid #1d3557;
+  margin-top: 20px;
+  width: 600px;
+  max-width: 100%;
+}
+
+.user-tours h3 {
+  font-size: 1.3rem;
+}
+
+.user-tours h2 {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.7rem;
+}
+
+.user-tours .user-tour-title {
+  background-color: #1d3557;
+  margin: 0 -1rem;
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  font-size: 1.4rem;
+  color: #f1faee;
+}
+
+.user-tours .last.user-tour-title {
+  padding-top: 0;
+}
+
+.upcoming-tour {
+  border: 2px solid #457b9d;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.upcoming-tour h3 {
+  font-size: 1.2rem;
+}
+/*# sourceMappingURL=UserProfile.css.map */

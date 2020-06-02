@@ -6,11 +6,18 @@ class ToursController < ApplicationController
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
     if params[:city] != nil    
-      tours = Tour.where(city: params[:city].capitalize)
+      tours = Tour.where(city: params[:city])
       json_response(tours.as_json(only: %i[id description city]))
-    else
+    elsif params[:client] != nil
       tours = Tour.where(client_id: params[:client])
       json_response(tours.as_json(only: %i[id description city]))
+    elsif params[:arr] != nil
+      tours = Tour.all
+      tourArr = []
+      tours.each do |tour|
+        tourArr.include?(tour.city) ? nil : tourArr << tour.city
+      end
+      json_response({ tourArr: tourArr })
     end
   end
 
@@ -63,8 +70,9 @@ class ToursController < ApplicationController
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
-    tour = Tour.find_by(id: params[:id])
-    json_response(tour)
+    tour = Tour.includes(:client).find_by(id: params[:id])
+    client = tour.client
+    json_response({ tour: tour, client: client.as_json(only: %i[id email company_name company_logo]) })
   end
 
   private

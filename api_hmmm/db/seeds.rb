@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "Started to seed the database"
 
-for i in 1..20 do
+for i in 1..30 do
   name = Faker::Name.first_name
   username = "#{Faker::Name.first_name}#{i}"
   email = "foo#{i}@bar.com"
@@ -30,7 +30,7 @@ end
 
 puts "finished seeding the clients"
 
-for i in 1..40 do
+for i in 1..60 do
   country = Faker::Nation.nationality
   city = Faker::Nation.capital_city
   desc = Faker::Lorem.paragraph
@@ -44,12 +44,13 @@ end
 
 puts "finished seeding the tours"
 
-for i in 1..60 do
-  user = rand(20) + 1
-  tour_id = rand(40) + 1
-  quantity = rand(5) + 1
-  day = Faker::Date.between(from: Date.today, to: 4.days.from_now)
+for i in 1..120 do
+  user = rand(30) + 1
+  tour_id = rand(60) + 1
+  quantity = rand(7) + 1
+  day = Faker::Date.between(from: Date.tomorrow, to: 1.year.from_now)
   Bookedtour.create!(user_id: user, tour_id: tour_id, quantity: quantity, day: day)
 end
 
 puts "finished seeding the bookedtours"
+

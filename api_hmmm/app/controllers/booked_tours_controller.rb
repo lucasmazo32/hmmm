@@ -7,9 +7,21 @@ class BookedToursController < ApplicationController
     end
     if params[:user] != nil
       json_response(user_info(params[:user]))
-    else
-      json_response(tour_info(params[:tour]))
+    elsif params[:tour]
+      json_response(tour_info(params[:tour], params[:date]))
+    else params[:client]
+      json_response(client_info(params[:client]))
     end
+  end
+
+  def create
+    if params[:api_key] == nil
+      return json_response({ Message: 'No api key given' })
+    else
+      return json_response({ Message: 'Wrong api key' }) unless validates_key
+    end
+    booked = Bookedtour.create!(booked_params)
+    json_response(booked, :created)
   end
 
   private
@@ -24,14 +36,34 @@ class BookedToursController < ApplicationController
     end
   end
 
-  def tour_info(tour_id)
-    if Bookedtour.where(tour_id: tour_id).first != nil
+  def tour_info(tour_id, date)
+    if Bookedtour.where(tour_id: tour_id).first != nil && date == nil
       booked_tour = Bookedtour.where(tour_id: tour_id).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc)
-      user_info = Bookedtour.where(tour_id: tour_id)
-      return { booked_tours: booked_tour.first.sum, user_info: user_info.as_json(only: %i[user_id day quantity]) }
+      return { booked_tours: booked_tour.first.sum, user_info: Tour.find(tour_id).info.as_json(except: %i[id]) }
+    elsif Bookedtour.where(tour_id: tour_id).first != nil && date != nil
+      booked_tour = Bookedtour.where(tour_id: tour_id, day: date).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc)
+      return { booked_tours: 0 } if booked_tour.first == nil
+      return { booked_tours: booked_tour.first.sum }
     else
       return { booked_tours: 0 }
     end
+  end
+
+  def client_info(client_id)
+    arr = Client.includes(:tours).find(client_id).tour_arr
+    hash = {}
+    arr.map do |tour_id|
+      if Bookedtour.where(tour_id: tour_id).first != nil
+        hash[tour_id] = Bookedtour.where(tour_id: tour_id).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc).first.sum
+      else
+        hash[tour_id] = 0
+      end
+    end
+    hash
+  end
+
+  def booked_params
+    params.permit(:user_id, :tour_id, :day, :quantity)
   end
 
   def validates_key

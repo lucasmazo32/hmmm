@@ -7,4 +7,10 @@ class Client < ApplicationRecord
   validates :password_confirmation, presence: true, length: { in: 6..20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
+
+  def tour_arr
+    if tours.any?
+      myArr = tours.map(&:id)
+    end
+  end
 end

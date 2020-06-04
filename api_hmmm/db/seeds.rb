@@ -12,7 +12,12 @@ for i in 1..30 do
   username = "#{Faker::Name.first_name}#{i}"
   email = "foo#{i}@bar.com"
   password = "foobar"
-  User.create!(name: name, username: username, email: email, password: password, password_confirmation: password)
+  user = User.new(name: name, username: username, email: email, password: password, password_confirmation: password)
+  if user.valid?
+    user.save
+  else
+    
+  end
 end
 
 puts "finished seeding the users"
@@ -54,3 +59,6 @@ end
 
 puts "finished seeding the bookedtours"
 
+Apikey.create!(key: '8df5e5622382e371cdd1', key_confirmation: '8df5e5622382e371cdd1')
+
+puts 'finished creating the API key'

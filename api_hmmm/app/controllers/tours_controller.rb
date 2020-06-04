@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ToursController < ApplicationController
+  before_action :set_tour, only: %i[show destroy update]
+
   def index
     return if api_key(params[:api_key])
 
@@ -12,11 +14,11 @@ class ToursController < ApplicationController
       json_response(tours.as_json(only: %i[id description city]))
     elsif !params[:arr].nil?
       tours = Tour.all
-      tourArr = []
+      tour_arr = []
       tours.each do |tour|
-        tourArr.include?(tour.city) ? nil : tourArr << tour.city
+        tour_arr.include?(tour.city) ? nil : tour_arr << tour.city
       end
-      json_response({ tourArr: tourArr })
+      json_response({ tourArr: tour_arr })
     end
   end
 
@@ -30,8 +32,7 @@ class ToursController < ApplicationController
   def destroy
     return if api_key(params[:api_key])
 
-    tour = Tour.find_by(id: params[:id])
-    client = Tour.client
+    client = @tour.client
     if client&.authenticate(params[:password])
       tour.destroy
       json_response({ Message: 'Tour deleted.' })
@@ -43,30 +44,28 @@ class ToursController < ApplicationController
   def update
     return if api_key(params[:api_key])
 
-    tour = Tour.find_by(id: params[:id])
-    client = Tour.client
+    client = @tour.client
     if client&.authenticate(params[:password])
-      json_response(tour) if tour.update(tour_params)
+      json_response(@tour) if @tour.update(tour_params)
     else
       json_response({ Message: 'Sorry, the password is incorrect.' })
     end
   end
 
   def show
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
-    tour = Tour.includes(:client).find_by(id: params[:id])
-    client = tour.client
-    json_response({ tour: tour, client: client.as_json(only: %i[id email company_name company_logo]) })
+    client = @tour.client
+    json_response({ tour: @tour, client: client.as_json(only: %i[id email company_name company_logo]) })
   end
 
   private
 
   def tour_params
     params.permit(:country, :city, :description, :max_capacity, :cost, :hour, :duration, :client_id)
+  end
+
+  def set_user
+    @tour = Tour.includes(:client).find_by(id: params[:id])
   end
 end

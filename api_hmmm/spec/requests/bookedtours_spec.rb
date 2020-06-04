@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Bookedtours", type: :request do
-  context "GET /booked_tours" do
-    it "gives me the info related to user info" do
+RSpec.describe 'Bookedtours', type: :request do
+  context 'GET /booked_tours' do
+    it 'gives me the info related to user info' do
       get booked_tours_path, params: { api_key: '18df5e5622382e371cdd1', user: '1' }
       expect(response.body).to include('dif_booked', 'booked_tours', 'booked_info')
     end
-    
-    it "gives me the info related to client info" do
+
+    it 'gives me the info related to client info' do
       get booked_tours_path, params: { api_key: '18df5e5622382e371cdd1', client: '1' }
       expect(response.body).to include('{')
     end
 
-    it "gives me the info related to user info" do
+    it 'gives me the info related to user info' do
       bookedTour = Bookedtour.first
       get booked_tours_path, params: { api_key: '18df5e5622382e371cdd1', tour: bookedTour.tour_id }
       expect(response.body).to include('booked_tours', 'user_info')

@@ -1,52 +1,56 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def create
-    if params[:api_key] == nil
+    if params[:api_key].nil?
       return json_response({ Message: 'No api key given' })
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
+
     @user = User.create!(user_params)
     json_response(@user, :created)
   end
 
   def show
-    if params[:api_key] == nil
+    if params[:api_key].nil?
       return json_response({ Message: 'No api key given' })
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
+
     user = User.find_by(id: params[:id])
     json_response(user.as_json(only: %i[id name email username]))
   end
 
   def destroy
-    if params[:api_key] == nil
+    if params[:api_key].nil?
       return json_response({ Message: 'No api key given' })
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
+
     user = User.find_by(id: params[:id])
     if user&.authenticate(params[:password])
       user.destroy
-      json_response({ Message: "User deleted." })
+      json_response({ Message: 'User deleted.' })
     else
-      json_response({ Message: "Sorry, the password is incorrect." })
+      json_response({ Message: 'Sorry, the password is incorrect.' })
     end
   end
 
   def update
-    if params[:api_key] == nil
+    if params[:api_key].nil?
       return json_response({ Message: 'No api key given' })
     else
       return json_response({ Message: 'Wrong api key' }) unless validates_key
     end
+
     user = User.find_by(id: params[:id])
     if user&.authenticate(params[:user_password])
-      if user.update(user_params)
-        json_response(user.as_json(only: %i[id email username name]))
-      end
+      json_response(user.as_json(only: %i[id email username name])) if user.update(user_params)
     else
-      json_response({ Message: "Sorry, the password is incorrect." })
+      json_response({ Message: 'Sorry, the password is incorrect.' })
     end
   end
 
@@ -60,6 +64,6 @@ class UsersController < ApplicationController
     apiAll = params[:api_key]
     apiKey = apiAll[1, 20]
     apiId = apiAll[0]
-    return Apikey.find(apiId).authenticate_key(apiKey)
+    Apikey.find(apiId).authenticate_key(apiKey)
   end
 end

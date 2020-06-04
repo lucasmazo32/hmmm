@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import bookedAtDate from '../api/bookedAtDate';
+import bookedAtDate from '../api/bookedInfo';
 import bookATour from '../api/bookATour';
 import helper from '../helpers/whenData';
 import '../assets/style/Book.css';

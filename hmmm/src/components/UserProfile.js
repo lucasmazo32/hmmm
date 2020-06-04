@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Nav from './Nav';
-import userTours from '../api/userTours';
+import userTours from '../api/bookedInfo';
 import '../assets/style/UserProfile.css';
 
 export default function UserProfile({ currentUser }) {
@@ -15,7 +15,7 @@ export default function UserProfile({ currentUser }) {
     if (currentUser === null || currentUser.info.username !== username) {
       history.push('/');
     }
-    const response = userTours(currentUser.info.id);
+    const response = userTours(null, null, currentUser.info.id);
     response.then(data => setInformation(data));
   }, [currentUser, history, username]);
 

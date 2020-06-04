@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import Nav from '../components/Nav';
 import selectOptions from '../api/selectOptions';
-import mainTours from '../api/mainTours';
+import mainTours from '../api/tourInfo';
 import '../assets/style/Main.css';
 
 const { clientArray, tourArray } = selectOptions;
@@ -37,7 +37,7 @@ export default function Main({ currentUser }) {
 
   const handleClient = e => {
     setFetch(true);
-    const response = mainTours('client', e.target.value);
+    const response = mainTours(null, 'client', e.target.value);
     response.then(toursArray => {
       setTours(toursArray);
       setFetch(false);
@@ -46,7 +46,7 @@ export default function Main({ currentUser }) {
 
   const handleCity = e => {
     setFetch(true);
-    const response = mainTours('city', e.target.value);
+    const response = mainTours(null, 'city', e.target.value);
     response.then(toursArray => {
       setTours(toursArray);
       setFetch(false);

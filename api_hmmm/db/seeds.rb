@@ -15,7 +15,13 @@ puts 'Started to seed the database'
   email = "foo#{i}@bar.com"
   password = 'foobar'
   user = User.new(name: name, username: username, email: email, password: password, password_confirmation: password)
-  user.save if user.valid?
+  unless user.valid?
+    until user.valid?
+      user.name = Faker::Name.first_name
+      user.username = "#{Faker::Name.first_name}#{i}"
+    end
+  end
+  user.save
 end
 
 puts 'finished seeding the users'
@@ -26,7 +32,8 @@ puts 'finished seeding the users'
   email = "foo#{i}@bar.com"
   password = 'foobar'
   client = Client.new(company_name: name, company_logo: logo, email: email, password: password, password_confirmation: password)
-  client.save if client.valid?
+  client.name = Faker::Company.name until client.valid? unless client.valid?
+  client.save
 end
 
 puts 'finished seeding the clients'

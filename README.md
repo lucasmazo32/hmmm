@@ -43,7 +43,17 @@ Currently, the page is not available for the local environment. If you want to r
 
 ## Tests
 
-Change to the respective directories and run `bundle exec rspec` for `/api_hmmm and`, and `npm test` for `/hmmm`.
+### REACT tests
+
+Run `npm test` in the directory `/hmmm`.
+
+### RAILS tests
+
+Change to `/api_hmmm` directory. Run the following commands in that exact order:
+
+- `rails db:create db:migrate RAILS_ENV=test`
+- `rails db:reset RAILS_ENV=test`
+- `bundle exec rspec`
 
 ## API Documentation
 

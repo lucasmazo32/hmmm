@@ -2,11 +2,7 @@
 
 class SessionsController < ApplicationController
   def create
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     if params[:client].nil?
       user = User.find_by(email: params[:email])
@@ -23,14 +19,5 @@ class SessionsController < ApplicationController
         json_response({ Message: 'Invalid email/password combination.' })
       end
     end
-  end
-
-  private
-
-  def validates_key
-    apiAll = params[:api_key]
-    apiKey = apiAll[1, 20]
-    apiId = apiAll[0]
-    Apikey.find(apiId).authenticate_key(apiKey)
   end
 end

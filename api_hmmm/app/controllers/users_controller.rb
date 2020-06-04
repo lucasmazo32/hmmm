@@ -2,33 +2,21 @@
 
 class UsersController < ApplicationController
   def create
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     @user = User.create!(user_params)
     json_response(@user, :created)
   end
 
   def show
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     user = User.find_by(id: params[:id])
     json_response(user.as_json(only: %i[id name email username]))
   end
 
   def destroy
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     user = User.find_by(id: params[:id])
     if user&.authenticate(params[:password])
@@ -40,11 +28,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     user = User.find_by(id: params[:id])
     if user&.authenticate(params[:user_password])
@@ -58,12 +42,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:name, :email, :username, :password, :password_confirmation)
-  end
-
-  def validates_key
-    apiAll = params[:api_key]
-    apiKey = apiAll[1, 20]
-    apiId = apiAll[0]
-    Apikey.find(apiId).authenticate_key(apiKey)
   end
 end

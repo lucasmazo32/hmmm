@@ -2,11 +2,7 @@
 
 class ToursController < ApplicationController
   def index
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     if !params[:city].nil?
       tours = Tour.where(city: params[:city])
@@ -25,22 +21,14 @@ class ToursController < ApplicationController
   end
 
   def create
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     tour = Tour.create!(tour_params)
     json_response(tour, :created)
   end
 
   def destroy
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     tour = Tour.find_by(id: params[:id])
     client = Tour.client
@@ -53,11 +41,7 @@ class ToursController < ApplicationController
   end
 
   def update
-    if params[:api_key].nil?
-      return json_response({ Message: 'No api key given' })
-    else
-      return json_response({ Message: 'Wrong api key' }) unless validates_key
-    end
+    return if api_key(params[:api_key])
 
     tour = Tour.find_by(id: params[:id])
     client = Tour.client
@@ -84,12 +68,5 @@ class ToursController < ApplicationController
 
   def tour_params
     params.permit(:country, :city, :description, :max_capacity, :cost, :hour, :duration, :client_id)
-  end
-
-  def validates_key
-    apiAll = params[:api_key]
-    apiKey = apiAll[1, 20]
-    apiId = apiAll[0]
-    Apikey.find(apiId).authenticate_key(apiKey)
   end
 end

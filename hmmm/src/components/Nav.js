@@ -26,15 +26,14 @@ export default function Nav({ currentUser }) {
     document.querySelector('.nav-options').classList.toggle('closed');
   };
 
-  const handleLogOut = () => {
-    destroyCookie();
+  const handleNull = () => {
     history.push('/');
     window.location.reload();
   };
 
-  const handleNull = () => {
-    history.push('/');
-    window.location.reload();
+  const handleLogOut = () => {
+    destroyCookie();
+    handleNull();
   };
 
   return (

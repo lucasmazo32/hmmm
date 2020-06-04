@@ -23,9 +23,10 @@ class BookedToursController < ApplicationController
   private
 
   def user_info(user_id)
-    if Bookedtour.where(user_id: user_id).first != nil
-      dif_booked = Bookedtour.where(user_id: user_id).group(:user_id).count # Different booked tours
-      count_booked = Bookedtour.select('user_id, sum(quantity)').where(user_id: user_id).group(:user_id).order(user_id: :desc) # Number of booked tours
+    user_tours = Bookedtour.where(user_id: user_id)
+    if !user_tours.first.nil?
+      dif_booked = user_tours.dif_user # Different booked tours
+      count_booked = user_tours.count_user # Number of booked tours
       { dif_booked: dif_booked[user_id.to_i], booked_tours: count_booked.first.sum, booked_info: User.find(user_id).tours_going.as_json(except: %i[id]) }
     else
       { dif_booked: 0 }
@@ -33,11 +34,12 @@ class BookedToursController < ApplicationController
   end
 
   def tour_info(tour_id, date)
-    if Bookedtour.where(tour_id: tour_id).first != nil && date.nil?
-      booked_tour = Bookedtour.where(tour_id: tour_id).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc)
-      { booked_tours: booked_tour.first.sum, user_info: Tour.find(tour_id).info.as_json(except: %i[id]) }
-    elsif Bookedtour.where(tour_id: tour_id).first != nil && !date.nil?
-      booked_tour = Bookedtour.where(tour_id: tour_id, day: date).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc)
+    tour_books = Bookedtour.where(tour_id: tour_id)
+    if !tour_books.first.nil? && date.nil?
+      booked_tour = tour_books.booked_no_date
+      { booked_tours: booked_tour.first.sum, tour_info: Tour.find(tour_id).info.as_json(except: %i[id]) }
+    elsif !tour_books.first.nil? && !date.nil?
+      booked_tour = tour_books.booked_date(date)
       return { booked_tours: 0 } if booked_tour.first.nil?
 
       { booked_tours: booked_tour.first.sum }

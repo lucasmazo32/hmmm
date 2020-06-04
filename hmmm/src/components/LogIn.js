@@ -21,13 +21,8 @@ export function LogIn({ userType, setUser }) {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
-    let response;
     setFetching(true);
-    if (userType === 'user') {
-      response = login(email, password);
-    } else {
-      response = login(email, password, true);
-    }
+    const response = login(email, password, userType === 'user');
     response.then(result => {
       setFetching(false);
       if (result.Message) {

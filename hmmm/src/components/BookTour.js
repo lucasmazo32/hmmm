@@ -53,7 +53,7 @@ export function BookTour({
   return (
     <form onSubmit={handleSubmit} className="book-form closed">
       <label htmlFor="date">
-        Choose the date:
+        Choose the date (must be between today and one year from now):
         <input className="form-control" onChange={handleChange} min={today.toISOString().slice(0, 10)} max={maxDate} id="date" type="date" />
       </label>
       { loading ? (

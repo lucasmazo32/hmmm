@@ -29,7 +29,7 @@ class BookedToursController < ApplicationController
       count_booked = user_tours.count_user # Number of booked tours
       { dif_booked: dif_booked[user_id.to_i], booked_tours: count_booked.first.sum, booked_info: User.find(user_id).tours_going.as_json(except: %i[id]) }
     else
-      { dif_booked: 0 }
+      { dif_booked: 0, booked_tours: 0, booked_info: [] }
     end
   end
 
@@ -52,7 +52,7 @@ class BookedToursController < ApplicationController
     arr = Client.includes(:tours).find(client_id).tour_arr
     hash = {}
     arr.map do |tour_id|
-      if Bookedtour.where(tour_id: tour_id).first != nil
+      if !Bookedtour.where(tour_id: tour_id).first.nil?
         hash[tour_id] = Bookedtour.where(tour_id: tour_id).select('tour_id, sum(quantity)').group(:tour_id).order(tour_id: :desc).first.sum
       else
         hash[tour_id] = 0

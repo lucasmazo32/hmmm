@@ -16,11 +16,14 @@ export function BookTour({
   currentUser, tourId, tourCost, max, startLoading, endLoading, loading,
 }) {
   const [canBuy, setCanBuy] = useState(null);
+  const [whenClass, setWhenClass] = useState('book-tour-form closed');
   const [cost, setCost] = useState(0);
   const [message, setMessage] = useState(null);
 
   const handleChange = e => {
     startLoading();
+    setMessage('');
+    setWhenClass('book-tour-form');
     const bookedTours = bookedAtDate(tourId, e.target.value);
     bookedTours.then(result => {
       setCanBuy(max - result.booked_tours);
@@ -41,6 +44,7 @@ export function BookTour({
           setMessage(result.message);
         } else {
           setMessage('Tickets succesfully booked!');
+          setWhenClass('book-tour-form closed');
         }
       });
     }
@@ -56,6 +60,7 @@ export function BookTour({
         Choose the date (must be between today and one year from now):
         <input className="form-control" onChange={handleChange} min={today.toISOString().slice(0, 10)} max={maxDate} id="date" type="date" />
       </label>
+      <span className="book-msg">{ message }</span>
       { loading ? (
         <Loader
           type="Puff"
@@ -63,7 +68,7 @@ export function BookTour({
           height={50}
           width={50}
         />
-      ) : whenData(canBuy, handleCost, cost, message) }
+      ) : whenData(canBuy, handleCost, cost, message, whenClass) }
     </form>
   );
 }

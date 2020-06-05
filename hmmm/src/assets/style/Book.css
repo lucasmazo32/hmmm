@@ -40,4 +40,16 @@
           transform: translateY(-40px);
   pointer-events: none;
 }
+
+.book-tour-form {
+  opacity: 1;
+  pointer-events: inherit;
+  -webkit-transition: 0.4s all ease;
+  transition: 0.4s all ease;
+}
+
+.book-tour-form.closed {
+  opacity: 0;
+  pointer-events: none;
+}
 /*# sourceMappingURL=Book.css.map */

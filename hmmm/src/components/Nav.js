@@ -44,6 +44,7 @@ export default function Nav({ currentUser }) {
       <div className="options-container">
         <button onClick={handleClick} className="btn btn-down-main closed" type="button">{ `Hello, ${name} ` }</button>
         <ul className="nav-options closed">
+          <li><Link to="/" className="btn btn-down">Home</Link></li>
           <li>
             { currentUser.type === 'user'
               ? <Link className="btn btn-down" to={`/me/${currentUser.info.username}`}>Profile</Link>

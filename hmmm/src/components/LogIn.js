@@ -7,32 +7,31 @@ import actions from '../actions/index';
 import logo from '../assets/images/logo.png';
 import login from '../api/login';
 import session from '../api/session';
+import createUser from '../api/createUser';
 import '../assets/style/SignUp.css';
+import LoginForm from './LoginForm';
 
 const { setCookie } = session;
-const { setUser } = actions;
+const { setUser, startLoading, endLoading } = actions;
 
-export function LogIn({ userType, setUser }) {
-  const [fetching, setFetching] = useState(false);
-  const [message, setMessage] = useState('');
+export function LogIn({
+  userType, setUser, loading, startLoading, endLoading, signUp,
+}) {
+  const [message, setMessage] = useState(null);
+  const [msgClass, setMsgClass] = useState('message-alert closed');
   const history = useHistory();
 
-  const handleSubmit = e => {
+  const handleLogin = e => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
-    let response;
-    setFetching(true);
-    if (userType === 'user') {
-      response = login(email, password);
-    } else {
-      response = login(email, password, true);
-    }
+    startLoading();
+    const response = login(email, password, userType === 'client');
     response.then(result => {
-      setFetching(false);
+      endLoading();
       if (result.Message) {
         setMessage(result.Message);
-        document.querySelector('.message-alert').classList.remove('closed');
+        setMsgClass('message-alert');
       } else {
         setUser({ type: userType, info: result });
         setCookie(`${userType}${result.id}`);
@@ -41,23 +40,31 @@ export function LogIn({ userType, setUser }) {
     });
   };
 
+  const handleSignUp = e => {
+    e.preventDefault();
+    startLoading();
+    const user = createUser(
+      e.target[0].value, e.target[1].value, e.target[2].value, e.target[3].value, e.target[4].value,
+    );
+    user.then(result => {
+      endLoading();
+      if (result.message) {
+        setMessage(result.message);
+        setMsgClass('message-alert');
+      } else {
+        setUser({ type: 'user', info: result });
+        setCookie(`user${result.id}`);
+        history.push('/');
+      }
+    });
+  };
+
   return (
     <div className="sign-up container-xl">
       <img src={logo} alt="hmmm logo" />
-      <form onSubmit={handleSubmit}>
-        <h2 className="form">Log In</h2>
-        <label className="login-label" htmlFor="email">
-          { userType === 'user' ? 'User email' : 'Company email' }
-          <input className="form-control" id="email" type="email" placeholder="Email" />
-        </label>
-        <label className="login-label" htmlFor="password">
-          Password
-          <input className="form-control" id="password" type="password" placeholder="Password" />
-        </label>
-        <button className="btn form-control" type="submit">Submit</button>
-      </form>
-      <p className="message-alert closed">{message}</p>
-      { fetching ? (
+      <LoginForm type={signUp ? 'signup' : 'login'} userType={userType} handleLogin={e => handleLogin(e)} handleSignUp={e => handleSignUp(e)} />
+      <p className={msgClass}>{message}</p>
+      { loading ? (
         <div className="loader-tour">
           <Loader
             type="Puff"
@@ -74,14 +81,25 @@ export function LogIn({ userType, setUser }) {
 LogIn.propTypes = {
   userType: PropTypes.string.isRequired,
   setUser: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  startLoading: PropTypes.func.isRequired,
+  endLoading: PropTypes.func.isRequired,
+  signUp: PropTypes.bool,
 };
 
-const mapStateToProps = ({ logInReducer: userType }) => ({
+LogIn.defaultProps = {
+  signUp: null,
+};
+
+const mapStateToProps = ({ logInReducer: userType, loadingReducer: loading }) => ({
   userType,
+  loading,
 });
 
 const mapDispatchToProps = dispatch => ({
   setUser: loggedIn => dispatch(setUser(loggedIn)),
+  startLoading: () => dispatch(startLoading()),
+  endLoading: () => dispatch(endLoading()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

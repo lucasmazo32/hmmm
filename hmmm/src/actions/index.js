@@ -3,6 +3,8 @@ const action = {
   LOG_IN_CLIENT: 'LOG IN CLIENT',
   SET_USER: 'SET USER',
   UNSET_USER: 'SET USER',
+  START_LOADING: 'START LOADING',
+  END_LOADING: 'END LOADING',
 };
 
 const logInUser = () => ({
@@ -22,6 +24,14 @@ const setUser = userInfo => ({
   payload: userInfo,
 });
 
+const startLoading = () => ({
+  type: action.START_LOADING,
+});
+
+const endLoading = () => ({
+  type: action.END_LOADING,
+});
+
 export default {
-  action, logInClient, logInUser, unsetUser, setUser,
+  action, logInClient, logInUser, unsetUser, setUser, startLoading, endLoading,
 };

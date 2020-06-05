@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Nav from './Nav';
-import userTours from '../api/userTours';
+import userTours from '../api/bookedInfo';
 import '../assets/style/UserProfile.css';
 
 export default function UserProfile({ currentUser }) {
@@ -14,13 +14,15 @@ export default function UserProfile({ currentUser }) {
   useEffect(() => {
     if (currentUser === null || currentUser.info.username !== username) {
       history.push('/');
+    } else {
+      const response = userTours(null, null, currentUser.info.id);
+      response.then(data => setInformation(data));
     }
-    const response = userTours(currentUser.info.id);
-    response.then(data => setInformation(data));
   }, [currentUser, history, username]);
 
-  const upcoming = () => information.booked_info.map(tour => (
-    <div key={Math.random() * 30} className="upcoming-tour">
+  const upcoming = () => information.booked_info.map((tour, index) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <div key={index} className="upcoming-tour">
       <h3>{`Trip to: ${tour.city}`}</h3>
       <h3>{`Date: ${new Date(`${tour.day} 3:00`).toDateString()}`}</h3>
       <h3>{`Time: ${tour.hour}:00 *Military hour`}</h3>

@@ -3,18 +3,23 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
+import { connect } from 'react-redux';
 import Nav from '../components/Nav';
 import selectOptions from '../api/selectOptions';
-import mainTours from '../api/mainTours';
+import mainTours from '../api/tourInfo';
+import actions from '../actions/index';
 import '../assets/style/Main.css';
+
+const { startLoading, endLoading } = actions;
 
 const { clientArray, tourArray } = selectOptions;
 
-export default function Main({ currentUser }) {
+export function Main({
+  currentUser, loading, startLoading, endLoading,
+}) {
   const [clients, setClients] = useState([]);
   const [cities, setCities] = useState([]);
   const [tours, setTours] = useState([]);
-  const [fetch, setFetch] = useState(false);
 
   const clientOptions = () => {
     const response = clientArray();
@@ -35,21 +40,12 @@ export default function Main({ currentUser }) {
     citiesOptions();
   }, [currentUser]);
 
-  const handleClient = e => {
-    setFetch(true);
-    const response = mainTours('client', e.target.value);
+  const handleChange = (e, type) => {
+    startLoading();
+    const response = mainTours(null, type, e.target.value);
     response.then(toursArray => {
       setTours(toursArray);
-      setFetch(false);
-    });
-  };
-
-  const handleCity = e => {
-    setFetch(true);
-    const response = mainTours('city', e.target.value);
-    response.then(toursArray => {
-      setTours(toursArray);
-      setFetch(false);
+      endLoading();
     });
   };
 
@@ -59,17 +55,17 @@ export default function Main({ currentUser }) {
       <div className="container-xl main">
         <span className="main-filter-msg">Filter by company or by city!</span>
         <form>
-          <select onChange={handleClient} className="form-control" defaultValue="select">
+          <select onChange={e => handleChange(e, 'client')} className="form-control" defaultValue="select">
             <option value="select" disabled>Select a company</option>
             { clients.map(client => <option value={client.id} key={client.name}>{client.name}</option>) }
           </select>
-          <select onChange={handleCity} className="form-control" defaultValue="select">
+          <select onChange={e => handleChange(e, 'city')} className="form-control" defaultValue="select">
             <option value="select" disabled>Select a city</option>
             { cities.map(city => <option value={city} key={city}>{city}</option>) }
           </select>
         </form>
         <div className="main-tours-container">
-          { fetch ? (
+          { loading ? (
             <div className="loader-tour">
               <Loader
                 type="Puff"
@@ -92,8 +88,23 @@ export default function Main({ currentUser }) {
 
 Main.propTypes = {
   currentUser: PropTypes.objectOf(PropTypes.any),
+  loading: PropTypes.bool.isRequired,
+  startLoading: PropTypes.func.isRequired,
+  endLoading: PropTypes.func.isRequired,
 };
 
 Main.defaultProps = {
   currentUser: null,
 };
+
+const mapStateToProps = ({ loadingReducer: loading }) => ({
+  loading,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  startLoading: () => dispatch(startLoading()),
+  endLoading: () => dispatch(endLoading()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

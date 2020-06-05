@@ -1,16 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Welcome } from '../components/Welcome';
+import Welcome from '../components/WelcomeContainer';
 
 describe('A suit', () => {
-  it('should render without throwing error', () => {
+  it('should render the user division', () => {
     const mock = () => '';
-    expect(shallow(<Welcome logInClient={mock} logInUser={mock} />).is('.welcome-container')).toBe(true);
+    expect(shallow(<Welcome handleUser={mock} type="user" handleClient={mock} />).is('.welcome-user')).toBe(true);
   });
 
-  it('should contain are you a user', () => {
+  it('should render the client division', () => {
     const mock = () => '';
-    const wrapper = shallow((<Welcome logInClient={mock} logInUser={mock} />));
-    expect(wrapper.contains(<h2>Are you a user?</h2>)).toBe(true);
+    expect(shallow(<Welcome handleUser={mock} type="client" handleClient={mock} />).is('.welcome-client')).toBe(true);
   });
 });

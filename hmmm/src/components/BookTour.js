@@ -2,27 +2,32 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import bookedAtDate from '../api/bookedAtDate';
+import { connect } from 'react-redux';
+import bookedAtDate from '../api/bookedInfo';
 import bookATour from '../api/bookATour';
 import helper from '../helpers/whenData';
+import actions from '../actions/index';
 import '../assets/style/Book.css';
 
+const { endLoading, startLoading } = actions;
 const { whenData, today, maxDate } = helper;
 
-export default function BookTour({
-  currentUser, tourId, tourCost, max,
+export function BookTour({
+  currentUser, tourId, tourCost, max, startLoading, endLoading, loading,
 }) {
-  const [fetch, setFetch] = useState(false);
   const [canBuy, setCanBuy] = useState(null);
+  const [whenClass, setWhenClass] = useState('book-tour-form closed');
   const [cost, setCost] = useState(0);
   const [message, setMessage] = useState(null);
 
   const handleChange = e => {
-    setFetch(true);
+    startLoading();
+    setMessage('');
+    setWhenClass('book-tour-form');
     const bookedTours = bookedAtDate(tourId, e.target.value);
     bookedTours.then(result => {
       setCanBuy(max - result.booked_tours);
-      setFetch(false);
+      endLoading();
     });
   };
 
@@ -39,6 +44,7 @@ export default function BookTour({
           setMessage(result.message);
         } else {
           setMessage('Tickets succesfully booked!');
+          setWhenClass('book-tour-form closed');
         }
       });
     }
@@ -51,17 +57,18 @@ export default function BookTour({
   return (
     <form onSubmit={handleSubmit} className="book-form closed">
       <label htmlFor="date">
-        Choose the date:
+        Choose the date (must be between today and one year from now):
         <input className="form-control" onChange={handleChange} min={today.toISOString().slice(0, 10)} max={maxDate} id="date" type="date" />
       </label>
-      { fetch ? (
+      <span className="book-msg">{ message }</span>
+      { loading ? (
         <Loader
           type="Puff"
           color="#1d3557"
           height={50}
           width={50}
         />
-      ) : whenData(canBuy, handleCost, cost, message) }
+      ) : whenData(canBuy, handleCost, cost, message, whenClass) }
     </form>
   );
 }
@@ -71,8 +78,22 @@ BookTour.propTypes = {
   tourId: PropTypes.string.isRequired,
   max: PropTypes.number.isRequired,
   tourCost: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  startLoading: PropTypes.func.isRequired,
+  endLoading: PropTypes.func.isRequired,
 };
 
 BookTour.defaultProps = {
   currentUser: null,
 };
+
+const mapStateToProps = ({ loadingReducer: loading }) => ({
+  loading,
+});
+
+const mapDispatchToProps = dispatch => ({
+  startLoading: () => dispatch(startLoading()),
+  endLoading: () => dispatch(endLoading()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookTour);

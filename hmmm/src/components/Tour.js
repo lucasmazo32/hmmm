@@ -5,7 +5,7 @@ import Loader from 'react-loader-spinner';
 import Nav from './Nav';
 import tourApi from '../api/tourInfo';
 import '../assets/style/Tour.css';
-import BookTour from './BookTour';
+import BookTourNode from './BookTour';
 
 export default function Tour({ currentUser }) {
   const [tour, setTour] = useState(null);
@@ -33,7 +33,7 @@ export default function Tour({ currentUser }) {
       <p>{ `Duration: ${tour.tour.duration} hour(s)` }</p>
       <p>{ `Cost: $${tour.tour.cost} USD per person.` }</p>
       { currentUser.type === 'user' ? <button onClick={handleClick} type="button" className="btn btn-book" to="/booktour">Book this tour</button> : null }
-      { currentUser.type === 'user' ? <BookTour currentUser={currentUser} tourId={id} tourCost={tour.tour.cost} max={tour.tour.max_capacity} /> : null }
+      { currentUser.type === 'user' ? <BookTourNode currentUser={currentUser} tourId={id} tourCost={tour.tour.cost} max={tour.tour.max_capacity} /> : null }
     </section>
   );
 

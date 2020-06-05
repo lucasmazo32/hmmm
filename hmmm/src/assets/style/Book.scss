@@ -28,3 +28,14 @@ $dark-blue: #1d3557;
   transform: translateY(-40px);
   pointer-events: none;
 }
+
+.book-tour-form {
+  opacity: 1;
+  pointer-events: inherit;
+  transition: 0.4s all ease;
+}
+
+.book-tour-form.closed {
+  opacity: 0;
+  pointer-events: none;
+}

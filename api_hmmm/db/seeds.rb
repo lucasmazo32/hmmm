@@ -62,6 +62,6 @@ end
 
 puts 'finished seeding the bookedtours'
 
-Apikey.create!(key: '8df5e5622382e371cdd1', key_confirmation: '8df5e5622382e371cdd1')
+Apikey.create!(key: '78d2cab729f1b69ad3d2', key_confirmation: '78d2cab729f1b69ad3d2')
 
 puts 'finished creating the API key'

@@ -22,7 +22,7 @@ PS: The onomatopeia of thinking inspires the name.
 
 ## Live version
 
-> [Here](https://5ed5a7bbb8c254ad6552b6f7--hmmm-app.netlify.app/)
+> [Here](https://5edaa2d5b186b616885a172d--hmmm-app.netlify.app/)
 
 ## Built with
 

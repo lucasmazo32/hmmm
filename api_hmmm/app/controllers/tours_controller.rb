@@ -65,7 +65,7 @@ class ToursController < ApplicationController
     params.permit(:country, :city, :description, :max_capacity, :cost, :hour, :duration, :client_id)
   end
 
-  def set_user
+  def set_tour
     @tour = Tour.includes(:client).find_by(id: params[:id])
   end
 end

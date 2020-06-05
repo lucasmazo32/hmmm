@@ -23,9 +23,16 @@ Bundler.require(*Rails.groups)
 
 module ApiHmmm
   class Application < Rails::Application
+    # config.middleware.insert_before 0, Rack::Cors do
+    #   allow do
+    #     origins '', /.+hmmm-app.netlify.app/
+    #     resource '*', headers: :any, methods: :any
+    #   end
+    # end
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '', /.+hmmm-app.netlify.app/
+        origins 'localhost:3000'
         resource '*', headers: :any, methods: :any
       end
     end

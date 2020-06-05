@@ -10,10 +10,11 @@ import session from '../api/session';
 import '../assets/style/SignUp.css';
 
 const { setCookie } = session;
-const { setUser } = actions;
+const { setUser, startLoading, endLoading } = actions;
 
-export function LogIn({ userType, setUser }) {
-  const [fetching, setFetching] = useState(false);
+export function LogIn({
+  userType, setUser, loading, startLoading, endLoading,
+}) {
   const [message, setMessage] = useState('');
   const history = useHistory();
 
@@ -21,10 +22,10 @@ export function LogIn({ userType, setUser }) {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
-    setFetching(true);
+    startLoading();
     const response = login(email, password, userType === 'user');
     response.then(result => {
-      setFetching(false);
+      endLoading();
       if (result.Message) {
         setMessage(result.Message);
         document.querySelector('.message-alert').classList.remove('closed');
@@ -52,7 +53,7 @@ export function LogIn({ userType, setUser }) {
         <button className="btn form-control" type="submit">Submit</button>
       </form>
       <p className="message-alert closed">{message}</p>
-      { fetching ? (
+      { loading ? (
         <div className="loader-tour">
           <Loader
             type="Puff"
@@ -69,14 +70,20 @@ export function LogIn({ userType, setUser }) {
 LogIn.propTypes = {
   userType: PropTypes.string.isRequired,
   setUser: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  startLoading: PropTypes.func.isRequired,
+  endLoading: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ logInReducer: userType }) => ({
+const mapStateToProps = ({ logInReducer: userType, loadingReducer: loading }) => ({
   userType,
+  loading,
 });
 
 const mapDispatchToProps = dispatch => ({
   setUser: loggedIn => dispatch(setUser(loggedIn)),
+  startLoading: () => dispatch(startLoading()),
+  endLoading: () => dispatch(endLoading()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

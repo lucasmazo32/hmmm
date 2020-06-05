@@ -3,18 +3,23 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
+import { connect } from 'react-redux';
 import Nav from '../components/Nav';
 import selectOptions from '../api/selectOptions';
 import mainTours from '../api/tourInfo';
+import actions from '../actions/index';
 import '../assets/style/Main.css';
+
+const { startLoading, endLoading } = actions;
 
 const { clientArray, tourArray } = selectOptions;
 
-export default function Main({ currentUser }) {
+export function Main({
+  currentUser, loading, startLoading, endLoading,
+}) {
   const [clients, setClients] = useState([]);
   const [cities, setCities] = useState([]);
   const [tours, setTours] = useState([]);
-  const [fetch, setFetch] = useState(false);
 
   const clientOptions = () => {
     const response = clientArray();
@@ -36,20 +41,20 @@ export default function Main({ currentUser }) {
   }, [currentUser]);
 
   const handleClient = e => {
-    setFetch(true);
+    startLoading();
     const response = mainTours(null, 'client', e.target.value);
     response.then(toursArray => {
       setTours(toursArray);
-      setFetch(false);
+      endLoading();
     });
   };
 
   const handleCity = e => {
-    setFetch(true);
+    startLoading();
     const response = mainTours(null, 'city', e.target.value);
     response.then(toursArray => {
       setTours(toursArray);
-      setFetch(false);
+      endLoading();
     });
   };
 
@@ -69,7 +74,7 @@ export default function Main({ currentUser }) {
           </select>
         </form>
         <div className="main-tours-container">
-          { fetch ? (
+          { loading ? (
             <div className="loader-tour">
               <Loader
                 type="Puff"
@@ -92,8 +97,23 @@ export default function Main({ currentUser }) {
 
 Main.propTypes = {
   currentUser: PropTypes.objectOf(PropTypes.any),
+  loading: PropTypes.bool.isRequired,
+  startLoading: PropTypes.func.isRequired,
+  endLoading: PropTypes.func.isRequired,
 };
 
 Main.defaultProps = {
   currentUser: null,
 };
+
+const mapStateToProps = ({ loadingReducer: loading }) => ({
+  loading,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  startLoading: () => dispatch(startLoading()),
+  endLoading: () => dispatch(endLoading()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

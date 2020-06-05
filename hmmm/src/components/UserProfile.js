@@ -14,9 +14,10 @@ export default function UserProfile({ currentUser }) {
   useEffect(() => {
     if (currentUser === null || currentUser.info.username !== username) {
       history.push('/');
+    } else {
+      const response = userTours(null, null, currentUser.info.id);
+      response.then(data => setInformation(data));
     }
-    const response = userTours(null, null, currentUser.info.id);
-    response.then(data => setInformation(data));
   }, [currentUser, history, username]);
 
   const upcoming = () => information.booked_info.map((tour, index) => (

@@ -40,18 +40,9 @@ export function Main({
     citiesOptions();
   }, [currentUser]);
 
-  const handleClient = e => {
+  const handleChange = (e, type) => {
     startLoading();
-    const response = mainTours(null, 'client', e.target.value);
-    response.then(toursArray => {
-      setTours(toursArray);
-      endLoading();
-    });
-  };
-
-  const handleCity = e => {
-    startLoading();
-    const response = mainTours(null, 'city', e.target.value);
+    const response = mainTours(null, type, e.target.value);
     response.then(toursArray => {
       setTours(toursArray);
       endLoading();
@@ -64,11 +55,11 @@ export function Main({
       <div className="container-xl main">
         <span className="main-filter-msg">Filter by company or by city!</span>
         <form>
-          <select onChange={handleClient} className="form-control" defaultValue="select">
+          <select onChange={e => handleChange(e, 'client')} className="form-control" defaultValue="select">
             <option value="select" disabled>Select a company</option>
             { clients.map(client => <option value={client.id} key={client.name}>{client.name}</option>) }
           </select>
-          <select onChange={handleCity} className="form-control" defaultValue="select">
+          <select onChange={e => handleChange(e, 'city')} className="form-control" defaultValue="select">
             <option value="select" disabled>Select a city</option>
             { cities.map(city => <option value={city} key={city}>{city}</option>) }
           </select>

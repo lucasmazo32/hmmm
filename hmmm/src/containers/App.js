@@ -9,9 +9,8 @@ import {
 import session from '../api/session';
 import actions from '../actions/index';
 import showUser from '../api/showUser';
-import Main from './Main';
+import MainNode from './Main';
 import WelcomeNode from '../components/Welcome';
-import SignUp from '../components/SignUp';
 import '../assets/style/App.css';
 import LogInNode from '../components/LogIn';
 import Tour from '../components/Tour';
@@ -43,10 +42,10 @@ export function App({ currentUser, setUser }) {
     <Router>
       <Switch>
         <Route exact path="/">
-          { currentUser ? <Main currentUser={currentUser} /> : <WelcomeNode />}
+          { currentUser ? <MainNode currentUser={currentUser} /> : <WelcomeNode />}
         </Route>
         <Route path="/signup">
-          <SignUp />
+          <LogInNode signUp />
         </Route>
         <Route path="/login">
           <LogInNode />

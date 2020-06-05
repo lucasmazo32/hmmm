@@ -55,6 +55,10 @@ Change to `/api_hmmm` directory. Run the following commands in that exact order:
 - `rails db:reset RAILS_ENV=test`
 - `bundle exec rspec`
 
+Running these commands will make the tests pass:
+
+![](./test.png)
+
 ## API Documentation
 
 The documentation is in the directory `/hmmm`.

@@ -9,6 +9,7 @@ import login from '../api/login';
 import session from '../api/session';
 import createUser from '../api/createUser';
 import '../assets/style/SignUp.css';
+import LoginForm from './LoginForm';
 
 const { setCookie } = session;
 const { setUser, startLoading, endLoading } = actions;
@@ -58,37 +59,10 @@ export function LogIn({
     });
   };
 
-  const renderLogin = (() => (
-    <form onSubmit={handleLogin}>
-      <h2 className="form">Log In</h2>
-      <label className="login-label" htmlFor="email">
-        { userType === 'user' ? 'User email' : 'Company email' }
-        <input className="form-control" id="email" type="email" placeholder="Email" />
-      </label>
-      <label className="login-label" htmlFor="password">
-        Password
-        <input className="form-control" id="password" type="password" placeholder="Password" />
-      </label>
-      <button className="btn form-control" type="submit">Submit</button>
-    </form>
-  ))();
-
-  const renderSignUp = (() => (
-    <form onSubmit={handleSignUp}>
-      <h2 className="form">Sign up</h2>
-      <input className="form-control" type="text" placeholder="Name" />
-      <input className="form-control" type="text" placeholder="Username" />
-      <input className="form-control" type="email" placeholder="Email" />
-      <input className="form-control" type="password" placeholder="Password" />
-      <input className="form-control" type="password" placeholder="Password Confirmation" />
-      <button className="btn form-control" type="submit">Submit</button>
-    </form>
-  ))();
-
   return (
     <div className="sign-up container-xl">
       <img src={logo} alt="hmmm logo" />
-      { signUp ? renderSignUp : renderLogin }
+      <LoginForm type={signUp ? 'signup' : 'login'} userType={userType} handleLogin={e => handleLogin(e)} handleSignUp={e => handleSignUp(e)} />
       <p className={msgClass}>{message}</p>
       { loading ? (
         <div className="loader-tour">

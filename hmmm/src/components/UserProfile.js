@@ -19,8 +19,9 @@ export default function UserProfile({ currentUser }) {
     response.then(data => setInformation(data));
   }, [currentUser, history, username]);
 
-  const upcoming = () => information.booked_info.map(tour => (
-    <div key={Math.random() * 30} className="upcoming-tour">
+  const upcoming = () => information.booked_info.map((tour, index) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <div key={index} className="upcoming-tour">
       <h3>{`Trip to: ${tour.city}`}</h3>
       <h3>{`Date: ${new Date(`${tour.day} 3:00`).toDateString()}`}</h3>
       <h3>{`Time: ${tour.hour}:00 *Military hour`}</h3>

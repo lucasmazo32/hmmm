@@ -16,7 +16,8 @@ const { setUser, startLoading, endLoading } = actions;
 export function LogIn({
   userType, setUser, loading, startLoading, endLoading, signUp,
 }) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(null);
+  const [msgClass, setMsgClass] = useState('message-alert closed');
   const history = useHistory();
 
   const handleLogin = e => {
@@ -29,7 +30,7 @@ export function LogIn({
       endLoading();
       if (result.Message) {
         setMessage(result.Message);
-        document.querySelector('.message-alert').classList.remove('closed');
+        setMsgClass('message-alert');
       } else {
         setUser({ type: userType, info: result });
         setCookie(`${userType}${result.id}`);
@@ -48,7 +49,7 @@ export function LogIn({
       endLoading();
       if (result.message) {
         setMessage(result.message);
-        document.querySelector('.message-alert').classList.remove('closed');
+        setMsgClass('message-alert');
       } else {
         setUser({ type: 'user', info: result });
         setCookie(`user${result.id}`);
@@ -88,7 +89,7 @@ export function LogIn({
     <div className="sign-up container-xl">
       <img src={logo} alt="hmmm logo" />
       { signUp ? renderSignUp : renderLogin }
-      <p className="message-alert closed">{message}</p>
+      <p className={msgClass}>{message}</p>
       { loading ? (
         <div className="loader-tour">
           <Loader

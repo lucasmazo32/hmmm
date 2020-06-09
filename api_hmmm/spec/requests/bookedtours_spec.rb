@@ -4,23 +4,28 @@ require 'rails_helper'
 
 RSpec.describe 'Bookedtours', type: :request do
   context 'GET /booked_tours' do
+    before(:all) do
+      @booked_tour = Bookedtour.first
+    end
+
+    def get_booked(param, param_value)
+      my_params = { api_key: '178d2cab729f1b69ad3d2' }
+      my_params[param] = param_value
+      get booked_tours_path, params: my_params
+      response.body
+    end
+
     it 'gives me the info related to user info' do
-      booked_tour = Bookedtour.first
-      get booked_tours_path, params: { api_key: '178d2cab729f1b69ad3d2', user: booked_tour.user_id }
-      expect(response.body).to include('dif_booked', 'booked_tours', 'booked_info')
+      expect(get_booked('user', @booked_tour.user_id)).to include('dif_booked', 'booked_tours', 'booked_info')
     end
 
     it 'gives me the info related to client info' do
-      booked_tour = Bookedtour.first
-      tour = booked_tour.tour
-      get booked_tours_path, params: { api_key: '178d2cab729f1b69ad3d2', client: tour.client_id }
-      expect(response.body).to include('{')
+      tour = @booked_tour.tour
+      expect(get_booked('client', tour.client_id)).to include('{')
     end
 
     it 'gives me the info related to tour info' do
-      booked_tour = Bookedtour.first
-      get booked_tours_path, params: { api_key: '178d2cab729f1b69ad3d2', tour: booked_tour.tour_id }
-      expect(response.body).to include('booked_tours', 'tour_info')
+      expect(get_booked('tour', @booked_tour.tour_id)).to include('booked_tours', 'tour_info')
     end
   end
 

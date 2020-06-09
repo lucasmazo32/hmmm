@@ -33,7 +33,7 @@ export function BookTour({
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (new Date(e.target[0].value) <= today || new Date(e.target[0].value) >= maxDate) {
+    if (new Date(e.target[0].value) < today || new Date(e.target[0].value) >= maxDate) {
       setMessage('Date must be between tomorrow to 1 year from now.');
     } else if (e.target[1].value < 1 || e.target[1].value > max) {
       setMessage(`Tickets must be between 1 and ${max}`);

@@ -47,7 +47,8 @@ puts 'finished seeding the clients'
   hours = rand(6..13)
   dur = rand(1..4)
   client_id = rand(1..20)
-  Tour.create!(country: country, city: city, description: desc, max_capacity: max_capacity, cost: cost, hour: hours, duration: dur, client_id: client_id)
+  Tour.create!(country: country, city: city, description: desc, max_capacity: max_capacity, cost: cost, hour: hours,
+               duration: dur, client_id: client_id)
 end
 
 puts 'finished seeding the tours'

@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :users, only: %i[show create update destroy]
+  resources :clients, only: %i[index show create destroy update]
+  resources :tours, only: %i[index show create destroy update]
+  resources :booked_tours, only: %i[index create]
+  post '/login', to: 'sessions#create'
 end

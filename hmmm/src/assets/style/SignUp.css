@@ -1,0 +1,59 @@
+.sign-up img {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+}
+
+.sign-up form {
+  display: block;
+  background-color: #457b9d;
+  padding: 20px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+}
+
+.sign-up form h2 {
+  color: #f1faee;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.sign-up form .btn {
+  background-color: #f1faee;
+  color: #457b9d;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.sign-up form .btn:hover {
+  background-color: #457b9d;
+  color: #f1faee;
+}
+
+.sign-up .form-control {
+  margin: 10px 0;
+}
+
+.login-label {
+  color: #f1faee;
+  font-size: 1.2rem;
+  width: 100%;
+}
+
+.message-alert.closed {
+  opacity: 0;
+}
+
+.message-alert {
+  display: block;
+  opacity: 1;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: #e63947d7;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  color: #f1faee;
+}
+/*# sourceMappingURL=SignUp.css.map */

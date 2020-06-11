@@ -1,0 +1,64 @@
+.main-filter-msg {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.main form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.main .form-control {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .main .form-control {
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+}
+
+.main-tours-container {
+  width: 768px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.tour-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  border-radius: 0.75rem;
+  margin-top: 20px;
+  padding: 15px 30px;
+  background-color: #17567e;
+  color: #f1faee;
+}
+
+.tour-container .desc {
+  color: #f1faee;
+  width: 100%;
+}
+
+.tour-container .city {
+  display: block;
+  z-index: 0;
+  font-style: italic;
+}
+
+.tour-container:hover {
+  text-decoration: none;
+  color: #f1faee;
+}
+/*# sourceMappingURL=Main.css.map */

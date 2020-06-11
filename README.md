@@ -3,6 +3,8 @@
 * [Live version](#live-version)
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
+* [Tests](#tests)
+* [API Documentation](#api-documentation)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -10,16 +12,22 @@
 <!-- about-the-project -->
 # About the project
 
-![image]()
+![image](screenshot.png)
 
-"OneTrick Ponnying" is an application for movies. It uses React Router for client-side rendering in which the homepage will display ten movies and series chosen by me. You can look for specific content by name, and you will be routed to their IMDb  ID, displaying particular information. Later on, you can select favorite content and go to the favorites route, which will view all the favorite shows for you.
+"hmmm" is an application where you can book tours to a city where you are traveling. You can filter the tours available by the municipality or by the company offering them. You will see more advanced information for the trip, and it will tell you how many journeys are left in real-time.
+
+It is an MVP of an application and can be expanded to new functionality. Enjoy it!
+
+PS: The onomatopeia of thinking inspires the name.
 
 ## Live version
 
-> [Here](https://aqueous-ridge-05013.herokuapp.com/)
+> [Here](https://5edff309a523e9019bc3772d--hmmm-app.netlify.app/)
 
 ## Built with
 
+- Ruby 2.7.0
+- Rails 6.0.3
 - Node v13.11.0
 - npm v6.13.7
 - React v16.13.1
@@ -29,25 +37,31 @@
 
 To get a local copy up and running follow these simple steps.
 
-Clone or fork the [repository]().
+Clone or fork the [repository](https://github.com/lucasmazo32/hmmm).
 
-### `npm start`
+Currently, the page is not available for the local environment. If you want to reproduce it in your machine, allow the CORS for the localhost in the rails API.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tests
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### REACT tests
 
-### `npm test`
+Run `npm test` in the directory `/hmmm`.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### RAILS tests
 
-### `npm run build`
+Change to `/api_hmmm` directory. Run the following commands in that exact order:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `rails db:create db:migrate RAILS_ENV=test`
+- `rails db:reset RAILS_ENV=test`
+- `bundle exec rspec`
+
+Running these commands will make the tests pass:
+
+![](./test.png)
+
+## API Documentation
+
+The documentation is in the directory `/hmmm`.
 
 # License
 

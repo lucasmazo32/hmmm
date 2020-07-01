@@ -35,7 +35,7 @@ PS: The onomatopeia of thinking inspires the name.
 
 ## Getting started
 
-To get a local copy up and running follow these simple steps.
+To get a local copy up and running, follow these simple steps.
 
 Clone or fork the [repository](https://github.com/lucasmazo32/hmmm).
 

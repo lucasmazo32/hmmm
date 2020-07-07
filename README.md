@@ -16,7 +16,7 @@
 
 "hmmm" is an application where you can book tours to a city where you are traveling. You can filter the tours available by the municipality or by the company offering them. You will see more advanced information for the trip, and it will tell you how many journeys are left in real-time.
 
-It is an MVP of an application and can be expanded to new functionality. Enjoy it!
+It is an MVP of an application and can be expanded to new functionality, like online payments, or to book an appointment with the company offering the trip to get a better deal. Enjoy it!
 
 PS: The onomatopeia of thinking inspires the name.
 
